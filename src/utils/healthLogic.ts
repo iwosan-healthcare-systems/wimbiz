@@ -508,22 +508,87 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
     });
   }
 
-  // 7. Nutrition
-  const nutrition = answers['q7_nutrition'];
-  if (nutrition === 'daily_most') {
+  // 7. Nutrition & Hydration
+  const plateColor = answers['q_nutrition_plate_colors'];
+  const animalProtein = answers['q_nutrition_animal_protein'];
+  const dietType = answers['q_nutrition_diet_type'];
+  const fibre = answers['q_nutrition_fibre'];
+  const water = answers['q_nutrition_water'];
+  const cookingOil = answers['q_nutrition_cooking_oil'];
+  const legacyNutrition = answers['q7_nutrition'];
+
+  // Plate diversity & colorful meals
+  if (plateColor === 'always' || legacyNutrition === 'daily_most') {
     keepDoing.push({
       id: 'nutrition_rich',
-      title: 'Fiber & Micronutrient-Rich Eating',
-      description: 'Including fresh vegetables, greens, and fruit in daily meals delivers potassium and antioxidants that directly nurture vascular health.',
+      title: 'Diverse, Colorful Meal Plates',
+      description: 'Regularly including a vibrant rainbow of vegetables, legumes, whole grains, and healthy fats delivers antioxidants and phytonutrients that protect vascular and cellular health.',
       articleId: 'nutrition-habits',
     });
-  } else if (nutrition === 'few_times' || nutrition === 'rarely') {
+  } else if (plateColor === 'sometimes' || plateColor === 'rarely' || legacyNutrition === 'few_times' || legacyNutrition === 'rarely') {
     worthChecking.push({
       id: 'nutrition_add',
-      title: 'Add One Extra Portion of Greens or Fresh Fruit Daily',
-      description: 'Targeting a colorful plate model with local dark leafy vegetables (ugwu, spinach, waterleaf) supports digestion and hormone regulation.',
+      title: 'Build a More Colorful Plate Model',
+      description: 'Adding an extra serving of deep leafy greens (such as ugwu, spinach, or waterleaf), legumes, or colorful vegetables enhances your antioxidant shield and gut microbiome vitality.',
       articleId: 'nutrition-habits',
       actionText: 'Read Nutrition Guide',
+      actionScreen: 'lifestyle',
+    });
+  }
+
+  // Dietary Fibre intake
+  if (fibre === 'a_lot_25_30g') {
+    keepDoing.push({
+      id: 'fibre_optimal',
+      title: 'Optimal Daily Fibre Intake (25–30g)',
+      description: 'Reaching 25–30g of daily dietary fibre actively regulates postprandial glucose, lowers LDL cholesterol, and maintains digestive balance.',
+      articleId: 'nutrition-habits',
+    });
+  } else if (fibre === 'not_so_much_less_25g' || fibre === 'no_fibre') {
+    worthChecking.push({
+      id: 'fibre_boost',
+      title: 'Gradually Increase Daily Dietary Fibre',
+      description: 'Most women benefit from reaching 25–30g of daily fibre. Simple additions like oats, beans, chia seeds, and whole vegetables steadily improve metabolic balance.',
+      articleId: 'nutrition-habits',
+      actionText: 'Explore Fibre Tips',
+      actionScreen: 'lifestyle',
+    });
+  }
+
+  // Daily Hydration
+  if (water === '4_5_bottles_75cl' || water === '2_3_bottles_75cl') {
+    keepDoing.push({
+      id: 'water_healthy',
+      title: 'Sufficient Daily Hydration',
+      description: 'Drinking 2–4+ bottles of water daily supports kidney clearance, steady energy, blood pressure regulation, and cognitive focus.',
+      articleId: 'nutrition-habits',
+    });
+  } else if (water === 'less_than_2_bottles_75cl') {
+    worthChecking.push({
+      id: 'water_increase',
+      title: 'Increase Daily Water Hydration',
+      description: 'Consuming less than 1.5 litres of water can lead to subtle dehydration, afternoon fatigue, and urinary tract vulnerability. Aim to carry a refillable water bottle.',
+      articleId: 'nutrition-habits',
+      actionText: 'Read Hydration Tips',
+      actionScreen: 'lifestyle',
+    });
+  }
+
+  // Healthy Cooking Fats
+  if (cookingOil === 'unsaturated_fats') {
+    keepDoing.push({
+      id: 'oil_heart_healthy',
+      title: 'Heart-Healthy Unsaturated Cooking Oils',
+      description: 'Cooking primarily with unsaturated fats (such as olive, canola, sunflower, or avocado oil) protects your blood vessel lining and HDL cholesterol levels.',
+      articleId: 'heart-health-women',
+    });
+  } else if (cookingOil === 'saturated_fats') {
+    worthChecking.push({
+      id: 'oil_swap_guide',
+      title: 'Heart-Friendly Cooking Oil Swaps',
+      description: 'High intake of saturated cooking fats can elevate arterial LDL cholesterol. Consider swapping some saturated fats with cold-pressed olive or vegetable oils.',
+      articleId: 'heart-health-women',
+      actionText: 'Read Heart Health Guide',
       actionScreen: 'lifestyle',
     });
   }
@@ -559,20 +624,38 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
 
   // 9. Avoidance of Toxic Substances
   const toxic = answers['q_toxic_substances'];
-  if (toxic === 'none') {
+  if (toxic === 'no_smoke' || toxic === 'none') {
     keepDoing.push({
       id: 'toxic_none',
-      title: 'Toxin-Free Cellular Health',
-      description: 'Avoiding tobacco and smoking while keeping alcohol to a minimum or zero directly protects your arterial walls, liver, and cellular longevity.',
+      title: 'Smoke-Free Cellular Health',
+      description: 'Living smoke-free directly protects your arterial walls, lung function, vocal cords, and long-term cellular longevity.',
       articleId: 'avoidance-toxic-substances',
       actionText: 'Read Toxin Guide',
       actionScreen: 'lifestyle',
     });
+  } else if (toxic === 'vape_shisha') {
+    worthChecking.push({
+      id: 'toxic_vape_shisha',
+      title: 'Vaping & Shisha Harm-Reduction Support',
+      description: 'Vaping and shisha expose delicate lung tissue and vascular endothelium to heated aerosols and toxic flavorants. Gradual reduction protects cardiovascular elasticity.',
+      articleId: 'avoidance-toxic-substances',
+      actionText: 'Read Toxin Guide',
+      actionScreen: 'lifestyle',
+    });
+  } else if (toxic === 'cigarettes_daily' || toxic === 'smoke_or_vape') {
+    discussWithDoctor.push({
+      id: 'toxic_smoking_cessation',
+      title: 'Cardiovascular & Lung Protection Support',
+      description: 'Regular cigarette smoking significantly accelerates arterial stiffness and cardiovascular risk for women. Our clinicians offer warm, evidence-based, compassionate cessation support.',
+      articleId: 'avoidance-toxic-substances',
+      actionText: 'Speak with an Iwosan Clinician',
+      actionScreen: 'contact',
+    });
   } else if (toxic === 'occasional_alcohol') {
     keepDoing.push({
       id: 'toxic_moderate',
-      title: 'Conscious & Moderate Alcohol Intake',
-      description: 'Keeping alcohol to rare or occasional social occasions supports liver metabolism, hormonal balance, and deep sleep architecture.',
+      title: 'Conscious & Moderate Lifestyle Habits',
+      description: 'Maintaining moderation supports liver metabolism, hormonal balance, and deep sleep architecture.',
       articleId: 'avoidance-toxic-substances',
       actionText: 'Read Toxin Guide',
       actionScreen: 'lifestyle',
@@ -586,15 +669,50 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
       actionText: 'Read Toxin Guide',
       actionScreen: 'lifestyle',
     });
-  } else if (toxic === 'smoke_or_vape') {
+  }
+
+  // Specific alcohol evaluation
+  const alcohol = answers['q_alcohol'];
+  if (alcohol === 'more_than_two_a_day') {
     discussWithDoctor.push({
-      id: 'toxic_smoking_cessation',
-      title: 'Cardiovascular & Lung Protection Support',
-      description: 'Smoking or vaping significantly raises arterial stiffness and cardiovascular risk for women. Our clinicians offer warm, evidence-based, compassionate cessation support.',
+      id: 'alcohol_high_intake_support',
+      title: 'Proactive Alcohol Moderation Support',
+      description: 'Consuming more than 2 drinks daily places noticeable metabolic load on liver function, blood pressure regulation, and deep sleep. Speaking with our wellness team provides compassionate, evidence-based reduction steps.',
       articleId: 'avoidance-toxic-substances',
       actionText: 'Speak with an Iwosan Clinician',
       actionScreen: 'contact',
     });
+  } else if (alcohol === 'one_a_day') {
+    worthChecking.push({
+      id: 'alcohol_daily_moderation',
+      title: 'Incorporate Alcohol-Free Days',
+      description: 'Daily alcohol intake can subtly elevate resting blood pressure and interrupt deep REM sleep cycles. Introducing 3–4 alcohol-free days per week promotes cellular rejuvenation and metabolic ease.',
+      articleId: 'avoidance-toxic-substances',
+      actionText: 'Read Toxin Guide',
+      actionScreen: 'lifestyle',
+    });
+  } else if (alcohol === 'social_drinker') {
+    if (toxic !== 'none' && toxic !== 'occasional_alcohol') {
+      keepDoing.push({
+        id: 'alcohol_social',
+        title: 'Mindful Social Alcohol Consumption',
+        description: 'Keeping alcohol consumption to occasional social settings aligns with liver-protective and cardiovascular health guidelines.',
+        articleId: 'avoidance-toxic-substances',
+        actionText: 'Read Toxin Guide',
+        actionScreen: 'lifestyle',
+      });
+    }
+  } else if (alcohol === 'no') {
+    if (toxic !== 'none') {
+      keepDoing.push({
+        id: 'alcohol_zero',
+        title: 'Alcohol-Free Cellular Vitality',
+        description: 'Abstaining from alcohol supports liver detoxification pathways, restful sleep cycles, and optimal cardiovascular wellness.',
+        articleId: 'avoidance-toxic-substances',
+        actionText: 'Read Toxin Guide',
+        actionScreen: 'lifestyle',
+      });
+    }
   }
 
   // 10. Midlife & Perimenopause (specifically tailored for 40–49 age band)
@@ -669,6 +787,33 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
         articleId: 'menopause-midlife',
         actionText: 'Read Midlife Guide',
         actionScreen: 'womens-health',
+      });
+    }
+
+    // Sexual desire & Intimacy (General Women's Health)
+    const sexualDesire = answers['q40_sexual_desire'];
+    if (sexualDesire === 'yes_reduced') {
+      discussWithDoctor.push({
+        id: 'libido_support',
+        title: 'Intimacy, Hormonal Balance & Libido Support',
+        description: 'Shifts in sexual desire during midlife are very common and biologically linked to shifting estrogen, testosterone, and sleep quality. Supportive hormonal and holistic care can help.',
+        articleId: 'menopause-midlife',
+        actionText: 'Discuss with Clinician',
+        actionScreen: 'contact',
+      });
+    } else if (sexualDesire === 'fluctuating') {
+      worthChecking.push({
+        id: 'libido_fluctuating',
+        title: 'Hormonal Rhythms & Intimacy Wellness',
+        description: 'Fluctuating desire often aligns with natural monthly hormonal peaks and fatigue levels. Open communication and gentle pacing support healthy intimacy.',
+        articleId: 'menopause-midlife',
+      });
+    } else if (sexualDesire === 'no_unchanged') {
+      keepDoing.push({
+        id: 'libido_healthy',
+        title: 'Steady Intimacy & Libido',
+        description: 'Maintaining consistent libido and intimacy is a positive sign of hormonal and emotional equilibrium.',
+        articleId: 'menopause-midlife',
       });
     }
   }
@@ -800,15 +945,24 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
   if (strength === 'regular_2_plus') {
     keepDoing.push({
       id: 'strength_routine_strong',
-      title: 'Strength & Resistance Exercise Habit',
-      description: 'Engaging in regular resistance training 2+ times weekly actively preserves bone density, metabolic rate, and muscle mass.',
+      title: 'Regular Strength or Cardio Exercise Habit',
+      description: 'Engaging in regular exercise 2+ times weekly actively preserves bone density, cardiovascular fitness, metabolic rate, and muscle mass.',
       articleId: 'movement-exercise',
     });
-  } else if (strength === 'cardio_only' || strength === 'none') {
+  } else if (strength === 'cardio_only') {
+    worthChecking.push({
+      id: 'strength_cardio_balance',
+      title: 'Combine Cardio with Resistance Movements',
+      description: 'Cardio is wonderful for cardiovascular health. Adding gentle bodyweight squats, resistance bands, or light weights twice a week strengthens bones and metabolism.',
+      articleId: 'movement-exercise',
+      actionText: 'Explore Movement Tips',
+      actionScreen: 'lifestyle',
+    });
+  } else if (strength === 'none') {
     worthChecking.push({
       id: 'strength_start_guide',
-      title: 'Incorporate 2 Days of Resistance Exercise',
-      description: 'Adding bodyweight squats, resistance bands, or light dumbbells twice a week provides vital bone mineral stimulation.',
+      title: 'Incorporate Regular Strength or Cardio Exercise',
+      description: 'Adding enjoyable brisk walks, light cardio, or bodyweight exercises twice a week provides vital cardiovascular and bone mineral stimulation.',
       articleId: 'movement-exercise',
       actionText: 'Explore Movement Tips',
       actionScreen: 'lifestyle',
@@ -816,25 +970,80 @@ export function generateSummary(answers: Record<string, string>, numbers?: Healt
   }
 
   // 15. Social Connectedness & Relationship
-  const lonely = answers['q_feel_lonely'];
-  const confidant = answers['q_have_confidant'];
+  const loved = answers['q_social_loved'];
+  const familySupport = answers['q_social_family_support'];
+  const friends = answers['q_social_friends'];
+  const workEnv = answers['q_social_work_environment'];
+  const teamWork = answers['q_social_team_work'];
+  const socializing = answers['q_social_socializing'];
+  const positiveEnergy = answers['q_social_positive_energy'];
 
-  if (lonely === 'rarely_never' && confidant === 'yes_confidant') {
-    keepDoing.push({
-      id: 'social_strong',
-      title: 'Strong Social Support & Meaningful Connection',
-      description: 'Having a trusted confidant and feeling closely connected to your circle provides vital psychological and cardiovascular resilience.',
-      articleId: 'healthy-micro-habits',
-    });
-  } else if (lonely === 'often' || confidant === 'no_one') {
-    worthChecking.push({
-      id: 'social_connection_care',
-      title: 'Prioritize Meaningful Community & Support Networks',
-      description: 'Navigating busy life seasons without a safe confidant can feel isolating. Connecting with supportive groups or wellness counsellors brings valuable emotional grounding.',
-      articleId: 'mental-health-mindfulness',
-      actionText: 'Read Support Guide',
-      actionScreen: 'lifestyle',
-    });
+  const socialAnswers = [
+    loved,
+    familySupport,
+    friends,
+    workEnv,
+    teamWork,
+    socializing,
+    positiveEnergy,
+  ].filter(Boolean);
+
+  if (socialAnswers.length > 0) {
+    const alwaysCount = socialAnswers.filter((v) => v === 'always').length;
+    const neverCount = socialAnswers.filter((v) => v === 'never').length;
+    const sometimesCount = socialAnswers.filter((v) => v === 'sometimes').length;
+
+    if (alwaysCount >= 4 && neverCount === 0) {
+      keepDoing.push({
+        id: 'social_strong',
+        title: 'Strong Social Support & Vibrant Connections',
+        description:
+          'Feeling loved, having good family and friend support, and thriving in positive team environments provides vital biological resilience and emotional grounding.',
+        articleId: 'healthy-micro-habits',
+      });
+    } else if (neverCount >= 2 || (loved === 'never' && familySupport === 'never')) {
+      worthChecking.push({
+        id: 'social_connection_care',
+        title: 'Nurture Community, Support Networks & Workplace Harmony',
+        description:
+          'Navigating relationships, family dynamics, or workplace tension without reassuring anchors can elevate chronic stress. Connecting with trusted circles, mentors, or wellness counselors brings restorative balance.',
+        articleId: 'mental-health-mindfulness',
+        actionText: 'Read Support Guide',
+        actionScreen: 'lifestyle',
+      });
+    } else if (sometimesCount >= 3 || neverCount === 1) {
+      worthChecking.push({
+        id: 'social_balance_care',
+        title: 'Deepen Social Connections & Relational Energy',
+        description:
+          'Investing intentional moments into supportive friendships, hospitable work boundaries, and positive personal spaces helps sustain everyday vitality and emotional buffer.',
+        articleId: 'mental-health-mindfulness',
+        actionText: 'Explore Mindful Habits',
+        actionScreen: 'lifestyle',
+      });
+    }
+  } else {
+    // Legacy fallback check
+    const lonely = answers['q_feel_lonely'];
+    const confidant = answers['q_have_confidant'];
+
+    if (lonely === 'rarely_never' && confidant === 'yes_confidant') {
+      keepDoing.push({
+        id: 'social_strong',
+        title: 'Strong Social Support & Meaningful Connection',
+        description: 'Having a trusted confidant and feeling closely connected to your circle provides vital psychological and cardiovascular resilience.',
+        articleId: 'healthy-micro-habits',
+      });
+    } else if (lonely === 'often' || confidant === 'no_one') {
+      worthChecking.push({
+        id: 'social_connection_care',
+        title: 'Prioritize Meaningful Community & Support Networks',
+        description: 'Navigating busy life seasons without a safe confidant can feel isolating. Connecting with supportive groups or wellness counsellors brings valuable emotional grounding.',
+        articleId: 'mental-health-mindfulness',
+        actionText: 'Read Support Guide',
+        actionScreen: 'lifestyle',
+      });
+    }
   }
 
   // 16. Mental Health & Mindfulness (PHQ-9 screening protocol)

@@ -120,18 +120,95 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q7_nutrition',
+    id: 'q_nutrition_plate_colors',
     category: 'NUTRITION',
     categoryLabel: 'Nutrition',
     stepNumber: 7,
     totalSteps: 10,
-    title: 'How often do your meals include fresh vegetables, greens, or fruit?',
-    whyWeAsk: 'Fiber, potassium, and antioxidants from fresh plant foods actively regulate blood pressure, support gut microbiome balance, and nurture cardiovascular resilience.',
+    title: 'How colorful is your food plate - Carbohydrates, protein, vegetables, legumes, fats, nuts and grains.',
+    whyWeAsk: 'A colorful plate full of diverse plant compounds, healthy fats, and quality proteins provides essential phytonutrients and supports gut and metabolic vitality.',
     options: [
-      { id: 'daily_most', label: 'Daily or with almost every meal', detail: 'Nutritious fiber & micronutrient density', type: 'doing_well' },
-      { id: 'few_times', label: 'A few times a week', detail: 'Good start — adding one more portion a day is a wonderful goal', type: 'worth_checking' },
-      { id: 'rarely', label: 'Rarely / Occasionally', detail: 'Simple swaps like leafy greens or local fruits can elevate energy', type: 'worth_checking' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
+      { id: 'always', label: 'Always', type: 'doing_well' },
+      { id: 'sometimes', label: 'Sometimes/occasionally', type: 'worth_checking' },
+      { id: 'rarely', label: 'Rarely', type: 'worth_checking' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_nutrition_animal_protein',
+    category: 'NUTRITION',
+    categoryLabel: 'Nutrition',
+    stepNumber: 7,
+    totalSteps: 10,
+    title: 'How often do you take animal protein?',
+    whyWeAsk: 'Balancing animal protein with wholesome plant-based proteins supports heart health, digestive rhythm, and renal wellbeing.',
+    options: [
+      { id: 'daily', label: 'Daily', type: 'neutral' },
+      { id: '2_3_times_week', label: '2-3 times a week', type: 'doing_well' },
+      { id: 'never', label: 'Never', type: 'neutral' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_nutrition_diet_type',
+    category: 'NUTRITION',
+    categoryLabel: 'Nutrition',
+    stepNumber: 7,
+    totalSteps: 10,
+    title: 'What type of diet do you practice?',
+    whyWeAsk: 'Nutritional patterns like Mediterranean and DASH diets are clinically proven to improve arterial elasticity and metabolic balance.',
+    options: [
+      { id: 'mediterranean', label: 'Mediterranean', type: 'doing_well' },
+      { id: 'dash', label: 'DASH (Dietary Approaches to Stop Hypertension)', type: 'doing_well' },
+      { id: 'vegan_vegetarian', label: 'Vegan/Vegetarian', type: 'doing_well' },
+      { id: 'pescatarian', label: 'Pescatarian', type: 'doing_well' },
+      { id: 'ketogenic', label: 'Ketogenic', type: 'neutral' },
+      { id: 'low_fat', label: 'Low-fat diet', type: 'neutral' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_nutrition_fibre',
+    category: 'NUTRITION',
+    categoryLabel: 'Nutrition',
+    stepNumber: 7,
+    totalSteps: 10,
+    title: 'How much fibre do you consume daily?',
+    whyWeAsk: 'Aiming for 25–30g of daily dietary fibre from legumes, vegetables, and grains optimizes gut microbiome health, stabilizes blood sugar, and lowers LDL cholesterol.',
+    options: [
+      { id: 'a_lot_25_30g', label: 'A lot – about 25-30g', type: 'doing_well' },
+      { id: 'not_so_much_less_25g', label: 'Not so much – less than 25g', type: 'worth_checking' },
+      { id: 'no_fibre', label: 'I don’t take fibre', type: 'discuss' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_nutrition_water',
+    category: 'NUTRITION',
+    categoryLabel: 'Nutrition',
+    stepNumber: 7,
+    totalSteps: 10,
+    title: 'How much water do you consume daily?',
+    whyWeAsk: 'Adequate hydration regulates blood pressure, boosts energy, promotes kidney function, and keeps skin and mucosal tissues supple.',
+    options: [
+      { id: '4_5_bottles_75cl', label: '4- 5 bottles of 75cl water', type: 'doing_well' },
+      { id: '2_3_bottles_75cl', label: '2-3 bottles of 75cl water', type: 'doing_well' },
+      { id: 'less_than_2_bottles_75cl', label: 'Less than 2 bottles of 75cl water', type: 'worth_checking' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_nutrition_cooking_oil',
+    category: 'NUTRITION',
+    categoryLabel: 'Nutrition',
+    stepNumber: 7,
+    totalSteps: 10,
+    title: 'What type of oil do you cook with?',
+    whyWeAsk: 'Unsaturated oils like olive, avocado, and canola protect cardiovascular arteries, whereas excess saturated fats elevate circulating LDL cholesterol.',
+    options: [
+      { id: 'unsaturated_fats', label: 'Unsaturated fats', type: 'doing_well' },
+      { id: 'saturated_fats', label: 'Saturated fats', type: 'worth_checking' },
+      { id: 'dont_know', label: 'I don’t know', type: 'neutral' },
     ],
     skipText: 'Skip this question',
   },
@@ -173,14 +250,28 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
     categoryLabel: 'Avoidance of Toxic Substances',
     stepNumber: 9,
     totalSteps: 10,
-    title: 'Do you smoke, use tobacco/vape, or consume alcohol regularly?',
-    whyWeAsk: 'Avoiding tobacco and moderating alcohol intake are critical lifestyle factors that protect cardiovascular arteries, cellular DNA, and breast tissue health.',
+    title: 'Do you smoke?',
+    whyWeAsk: 'Avoiding tobacco, vaping, and shisha protects cardiovascular endothelium, preserves lung function, and significantly reduces cancer risks.',
     options: [
-      { id: 'none', label: 'No, I don’t smoke, vape, or use tobacco, and rarely/never drink alcohol', detail: 'Zero or minimal toxin exposure protects cellular longevity', type: 'doing_well' },
-      { id: 'occasional_alcohol', label: 'Occasional social alcohol only (no tobacco/vaping)', detail: 'Moderate social consumption within recommended health guidelines', type: 'doing_well' },
-      { id: 'regular_alcohol', label: 'Drink alcohol several times a week', detail: 'Moderating intake reduces liver and blood pressure strain', type: 'worth_checking' },
-      { id: 'smoke_or_vape', label: 'Currently smoke, vape, or use tobacco products', detail: 'Our clinicians can provide gentle, evidence-based cessation support', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
+      { id: 'vape_shisha', label: 'Yes – I vape and do shisha', type: 'worth_checking' },
+      { id: 'cigarettes_daily', label: 'Yes – 1-2 packets of cigarettes daily', type: 'discuss' },
+      { id: 'no_smoke', label: 'No, I don’t', type: 'doing_well' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_alcohol',
+    category: 'AVOIDANCE OF TOXIC SUBSTANCES',
+    categoryLabel: 'Avoidance of Toxic Substances',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Do you drink alcohol?',
+    whyWeAsk: 'Understanding your alcohol habits helps provide clear insights on liver recovery, restful sleep, and cardiovascular wellbeing.',
+    options: [
+      { id: 'social_drinker', label: 'Yes – social drinker', type: 'doing_well' },
+      { id: 'one_a_day', label: 'Yes – 1 drink a day', type: 'worth_checking' },
+      { id: 'more_than_two_a_day', label: 'Yes – more than 2 drinks a day', type: 'discuss' },
+      { id: 'no', label: 'No', type: 'doing_well' },
     ],
     skipText: 'Skip this question',
   },
@@ -221,8 +312,8 @@ export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
   },
   {
     id: 'q40_sexual_desire',
-    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
-    categoryLabel: 'Social Connectedness and Relationship',
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
     stepNumber: 14,
     totalSteps: 20,
     title: 'Has your sexual desire changed?',
@@ -352,7 +443,7 @@ export const BONE_MOBILITY_QUESTIONS: Question[] = [
     categoryLabel: 'Exercise',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Do you do regular strength/resistance exercise?',
+    title: 'Do you do regular strength or cardio exercise?',
     whyWeAsk: 'Lifting weights, resistance bands, or bodyweight exercises (squats, push-ups) 2–3 times a week stimulates bone growth and protects metabolism.',
     options: [
       { id: 'regular_2_plus', label: 'Yes, 2 or more times per week', detail: 'Meets WHO bone & muscle strengthening targets', type: 'doing_well' },
@@ -364,37 +455,88 @@ export const BONE_MOBILITY_QUESTIONS: Question[] = [
   },
 ];
 
+const SOCIAL_RESPONSE_OPTIONS: QuestionOption[] = [
+  { id: 'always', label: 'Always', type: 'doing_well' },
+  { id: 'sometimes', label: 'Sometimes', type: 'worth_checking' },
+  { id: 'never', label: 'Never', type: 'discuss' },
+];
+
 export const SOCIAL_CONNECTEDNESS_QUESTIONS: Question[] = [
   {
-    id: 'q_feel_lonely',
+    id: 'q_social_loved',
     category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
     categoryLabel: 'Social Connectedness and Relationship',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Do you feel lonely?',
-    whyWeAsk: 'Social connection and feeling seen are profound biological determinants of cardiovascular longevity and mental health.',
-    options: [
-      { id: 'rarely_never', label: 'Rarely or never', detail: 'Connected social network', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes (feel lonely despite being around people)', detail: 'Very common modern experience', type: 'worth_checking' },
-      { id: 'often', label: 'Often (feel isolated or disconnected from others)', detail: 'Nurturing community support brings immense healing', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
+    title: 'I feel loved',
+    whyWeAsk: 'Feeling emotionally supported and cherished is strongly linked to lower cardiovascular stress and greater emotional resilience.',
+    options: SOCIAL_RESPONSE_OPTIONS,
     skipText: 'Skip this question',
   },
   {
-    id: 'q_have_confidant',
+    id: 'q_social_family_support',
     category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
     categoryLabel: 'Social Connectedness and Relationship',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Do you feel you have someone you can talk to when things are difficult?',
-    whyWeAsk: 'Having at least one trusted person with whom you can be completely candid buffers against acute stress.',
-    options: [
-      { id: 'yes_confidant', label: 'Yes, have trusted friends, family, or partner', detail: 'Strong personal support pillar', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes, but don’t want to burden them', detail: 'Professional counsellors offer a safe, confidential space', type: 'worth_checking' },
-      { id: 'no_one', label: 'No, feel there is no one I can confide in', detail: 'You are never alone; confidential guidance is available', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
+    title: 'I have good family support',
+    whyWeAsk: 'A supportive family environment provides a foundational emotional anchor through life transitions and challenges.',
+    options: SOCIAL_RESPONSE_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_social_friends',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'I have good friends around me who wish me well',
+    whyWeAsk: 'Authentic friendships and positive community connections promote long-term cognitive and emotional health.',
+    options: SOCIAL_RESPONSE_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_social_work_environment',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'My office environment and culture are hospitable and conducive',
+    whyWeAsk: 'Workplace culture and psychological safety directly influence chronic stress levels, sleep quality, and daily vitality.',
+    options: SOCIAL_RESPONSE_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_social_team_work',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'I love working with my team',
+    whyWeAsk: 'Collaborative, respectful team dynamics reduce occupational burnout and enhance daytime satisfaction.',
+    options: SOCIAL_RESPONSE_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_social_socializing',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'I love socializing',
+    whyWeAsk: 'Social engagement stimulates endorphins, neuroplasticity, and a sense of shared belonging.',
+    options: SOCIAL_RESPONSE_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'q_social_positive_energy',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'I have positive energy and I love positive vibes',
+    whyWeAsk: 'Cultivating optimism and positive emotional energy supports immune function, hormonal balance, and vitality.',
+    options: SOCIAL_RESPONSE_OPTIONS,
     skipText: 'Skip this question',
   },
 ];
@@ -550,9 +692,15 @@ const QUESTION_ORDER_WITHIN_CATEGORY: Record<string, number> = {
   q_breast_self_check: 3,
   q40_urinary_leakage: 4,
   q40_hot_flushes: 5,
+  q40_sexual_desire: 6,
 
   // Nutrition
-  q7_nutrition: 1,
+  q_nutrition_plate_colors: 1,
+  q_nutrition_animal_protein: 2,
+  q_nutrition_diet_type: 3,
+  q_nutrition_fibre: 4,
+  q_nutrition_water: 5,
+  q_nutrition_cooking_oil: 6,
 
   // Exercise
   q6_activity: 1,
@@ -564,9 +712,13 @@ const QUESTION_ORDER_WITHIN_CATEGORY: Record<string, number> = {
   q40_sleep_changed: 2,
 
   // Social Connectedness and Relationship
-  q_feel_lonely: 1,
-  q_have_confidant: 2,
-  q40_sexual_desire: 3,
+  q_social_loved: 1,
+  q_social_family_support: 2,
+  q_social_friends: 3,
+  q_social_work_environment: 4,
+  q_social_team_work: 5,
+  q_social_socializing: 6,
+  q_social_positive_energy: 7,
 
   // Mental health and Mindfulness
   phq1_interest: 1,
@@ -581,7 +733,8 @@ const QUESTION_ORDER_WITHIN_CATEGORY: Record<string, number> = {
 
   // Avoidance of Toxic Substances
   q_toxic_substances: 1,
-  q_last_mammogram: 2,
+  q_alcohol: 2,
+  q_last_mammogram: 3,
 };
 
 export function getHealthQuestions(answers?: Record<string, string>): Question[] {
@@ -590,7 +743,7 @@ export function getHealthQuestions(answers?: Record<string, string>): Question[]
   const rawQuestions: Question[] = [...CORE_HEALTH_QUESTIONS];
 
   const is18to49 = ['18_29', '20_29', '30_39', '40_49'].includes(age || '');
-  const is40to49 = age === '40_49';
+  const is40Plus = ['40_49', '50_plus', '50_59', '60_plus'].includes(age || '');
   const is18to50Plus = ['18_29', '20_29', '30_39', '40_49', '50_plus', '50_59', '60_plus'].includes(age || '');
 
   // 1. Menstrual Health (18–49)
@@ -603,8 +756,8 @@ export function getHealthQuestions(answers?: Record<string, string>): Question[]
     rawQuestions.push(...PREGNANCY_20_50_QUESTIONS);
   }
 
-  // 3. Midlife & Perimenopause (40–49)
-  if (is40to49) {
+  // 3. Midlife & Perimenopause (40+)
+  if (is40Plus) {
     rawQuestions.push(...PERIMENOPAUSE_40_49_QUESTIONS);
   }
 
