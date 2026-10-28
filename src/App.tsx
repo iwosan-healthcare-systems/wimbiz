@@ -128,25 +128,26 @@ export default function App() {
   };
 
   const activeArticle: Article | null = activeArticleId
-    ? CLINICAL_ARTICLES.find((a) => a.id === activeArticleId) || null
+    ? CLINICAL_ARTICLES.find((a) => a.id === activeArticleId) ||
+      (activeArticleId === 'nourishing-stress-recovery'
+        ? CLINICAL_ARTICLES.find((a) => a.id === 'mental-health-mindfulness') || null
+        : null)
     : null;
 
   // Selected Age Band label for context
   const ageAnswer = answers['q1_age'];
   let ageBandLabel: string | undefined = undefined;
-  if (ageAnswer === 'under_20') ageBandLabel = 'Under 20';
-  else if (ageAnswer === '20_29') ageBandLabel = '20 – 29';
+  if (ageAnswer === '18_29' || ageAnswer === '20_29') ageBandLabel = '18 – 29';
   else if (ageAnswer === '30_39') ageBandLabel = '30 – 39';
   else if (ageAnswer === '40_49') ageBandLabel = '40 – 49';
-  else if (ageAnswer === '50_59') ageBandLabel = '50 – 59';
-  else if (ageAnswer === '60_plus') ageBandLabel = '60+';
+  else if (ageAnswer === '50_plus' || ageAnswer === '50_59' || ageAnswer === '60_plus') ageBandLabel = '50+';
 
   return (
     <div className={`min-h-screen ${currentScreen === 'welcome' || currentScreen === 'dashboard' || currentScreen === 'summary' ? 'bg-[#030611]' : currentScreen === 'article' ? 'bg-white' : 'bg-[#fafbfe]'} text-slate-900 flex flex-col items-center justify-start antialiased selection:bg-emerald-100 selection:text-emerald-900 print:bg-white print:min-h-0 print:p-0`}>
       {/* Centered Mobile App Canvas Frame */}
       <div className={`w-full ${currentScreen === 'admin' ? 'max-w-4xl' : 'max-w-md'} min-h-screen ${currentScreen === 'welcome' || currentScreen === 'dashboard' || currentScreen === 'summary' ? 'bg-[#050b18] sm:border-slate-800/60' : currentScreen === 'article' ? 'bg-white sm:border-slate-200/80' : 'bg-[#fafbfe] sm:border-slate-200/80'} flex flex-col relative sm:shadow-2xl sm:border-x transition-all duration-300 print:bg-white print:border-none print:shadow-none print:max-w-[430px] print:mx-auto print:min-h-0`}>
         {/* Persistent Brand Header on screens without custom hero top bars */}
-        {currentScreen !== 'welcome' && currentScreen !== 'dashboard' && currentScreen !== 'numbers' && currentScreen !== 'summary' && currentScreen !== 'womens-health' && currentScreen !== 'lifestyle' && currentScreen !== 'screening-guide' && currentScreen !== 'article' && (
+        {currentScreen !== 'welcome' && currentScreen !== 'dashboard' && currentScreen !== 'numbers' && currentScreen !== 'summary' && currentScreen !== 'womens-health' && currentScreen !== 'lifestyle' && currentScreen !== 'screening-guide' && currentScreen !== 'article' && currentScreen !== 'check' && (
           <Header
             currentScreen={currentScreen}
             onNavigate={handleNavigate}
@@ -157,7 +158,7 @@ export default function App() {
         )}
 
         {/* Dynamic Screen View with Smooth Page Transition */}
-        <main className={`flex-1 ${currentScreen === 'welcome' || currentScreen === 'dashboard' || currentScreen === 'numbers' || currentScreen === 'summary' || currentScreen === 'womens-health' || currentScreen === 'lifestyle' || currentScreen === 'screening-guide' || currentScreen === 'article' ? 'p-0' : 'px-4 sm:px-5 py-4'} overflow-hidden print:overflow-visible print:p-0`}>
+        <main className={`flex-1 ${currentScreen === 'welcome' || currentScreen === 'dashboard' || currentScreen === 'numbers' || currentScreen === 'summary' || currentScreen === 'womens-health' || currentScreen === 'lifestyle' || currentScreen === 'screening-guide' || currentScreen === 'article' || currentScreen === 'check' ? 'p-0' : 'px-4 sm:px-5 py-4'} overflow-hidden print:overflow-visible print:p-0`}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentScreen}
@@ -281,8 +282,8 @@ export default function App() {
           </AnimatePresence>
         </main>
 
-        {/* Bottom Persistent Navigation (hidden on Welcome, Admin, and Numbers screens) */}
-        {currentScreen !== 'admin' && currentScreen !== 'welcome' && currentScreen !== 'numbers' && (
+        {/* Bottom Persistent Navigation (hidden on Welcome, Admin, Numbers, and Check screens) */}
+        {currentScreen !== 'admin' && currentScreen !== 'welcome' && currentScreen !== 'numbers' && currentScreen !== 'check' && (
           <BottomNav
             currentScreen={currentScreen}
             onNavigate={handleNavigate}

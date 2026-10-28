@@ -1,10 +1,10 @@
-import { Question } from '../types';
+import { Question, QuestionCategory, QuestionOption } from '../types';
 
 export const CORE_HEALTH_QUESTIONS: Question[] = [
   {
     id: 'q0_occupation',
     category: 'OCCUPATION',
-    categoryLabel: 'OCCUPATION & WORK',
+    categoryLabel: 'Occupation & Work',
     stepNumber: 1,
     totalSteps: 10,
     title: 'What category do you fall under?',
@@ -27,25 +27,23 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
   {
     id: 'q1_age',
     category: 'AGE',
-    categoryLabel: 'AGE BAND',
+    categoryLabel: 'Age Band',
     stepNumber: 1,
     totalSteps: 9,
     title: 'Which age band are you in?',
     whyWeAsk: 'Women experience distinct hormonal and physiological milestones across life stages. Your age band helps tailor personalized screening timelines (such as mammograms and bone density) without needing your exact date of birth.',
     options: [
-      { id: 'under_20', label: 'Under 20', detail: 'Foundational reproductive awareness & HPV prevention', type: 'neutral' },
-      { id: '20_29', label: '20 – 29', detail: 'Cervical wellness, reproductive health & baseline vitals', type: 'neutral' },
+      { id: '18_29', label: '18 – 29', detail: 'Social connectedness, mental health, cervical & reproductive wellness', type: 'neutral' },
       { id: '30_39', label: '30 – 39', detail: 'Cardiovascular screening, cervical checks & fertility/fibroid care', type: 'neutral' },
       { id: '40_49', label: '40 – 49', detail: 'Mammography entry, perimenopause & metabolic checks', type: 'neutral' },
-      { id: '50_59', label: '50 – 59', detail: 'Menopause vitality, bone health, heart & colorectal checks', type: 'neutral' },
-      { id: '60_plus', label: '60+', detail: 'Bone density, cardiovascular health & postmenopausal wellness', type: 'neutral' },
+      { id: '50_plus', label: '50+', detail: 'Menopause vitality, bone health, heart & colorectal checks', type: 'neutral' },
     ],
     skipText: 'Skip this question',
   },
   {
     id: 'q2_checkup',
     category: 'ROUTINE CHECK',
-    categoryLabel: 'ROUTINE CHECK',
+    categoryLabel: 'Routine Check',
     stepNumber: 2,
     totalSteps: 9,
     title: 'When did you last have a routine wellness check?',
@@ -60,16 +58,32 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
+    id: 'q_last_cervical_screen',
+    category: 'ROUTINE CHECK',
+    categoryLabel: 'Routine Check',
+    stepNumber: 3,
+    totalSteps: 10,
+    title: 'When was your last cervical screening/Pap or HPV test?',
+    whyWeAsk: 'Cervical Pap smears and HPV DNA testing can prevent up to 90% of cervical cancers by detecting precancerous cells early.',
+    options: [
+      { id: 'within_3_years', label: 'Within the last 3 years', detail: 'Up to date with cervical wellness guidelines', type: 'doing_well' },
+      { id: '3_to_5_years', label: '3 to 5 years ago', detail: 'Screening update may be due soon', type: 'worth_checking' },
+      { id: 'more_than_5_years', label: 'More than 5 years ago', detail: 'Overdue for a routine 5-minute swab', type: 'discuss' },
+      { id: 'never', label: 'Never had a Pap or HPV test', detail: 'A gentle first test provides invaluable lifelong protection', type: 'discuss' },
+      { id: 'not_sure', label: 'Not sure of last screening date', detail: 'Easy to schedule with Iwosan', type: 'worth_checking' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
     id: 'q3_bp',
     category: 'BLOOD PRESSURE',
-    categoryLabel: 'BLOOD PRESSURE',
+    categoryLabel: 'Blood Pressure',
     stepNumber: 3,
     totalSteps: 9,
     title: 'Have you had your blood pressure checked recently?',
     whyWeAsk: 'High blood pressure rarely causes symptoms early on. An annual measurement is one of the simplest and most vital ways to protect your heart, brain, and kidneys.',
     options: [
       { id: 'within_year', label: 'Within the last year', detail: 'Excellent annual baseline tracking', type: 'doing_well' },
-      { id: 'longer_ago', label: 'Longer ago', detail: 'Overdue for a simple 2-minute cuff check', type: 'worth_checking' },
       { id: 'never', label: 'Never', detail: 'A quick check at our booth or clinic is recommended', type: 'discuss' },
       { id: 'not_sure', label: 'Not sure', detail: 'Easy to get done at any pharmacy or clinic', type: 'worth_checking' },
     ],
@@ -78,57 +92,39 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
   {
     id: 'q4_sugar',
     category: 'BLOOD SUGAR',
-    categoryLabel: 'BLOOD SUGAR',
+    categoryLabel: 'Blood Sugar',
     stepNumber: 4,
     totalSteps: 9,
     title: 'Have you had your blood sugar checked recently?',
     whyWeAsk: 'Fasting glucose or HbA1c testing identifies insulin resistance and pre-diabetes early, when simple dietary and movement shifts can completely reverse the trajectory.',
     options: [
       { id: 'within_year', label: 'Within the last 6–12 months', detail: 'Regular metabolic monitoring', type: 'doing_well' },
-      { id: 'longer_ago', label: 'Longer ago', detail: 'A routine blood glucose test is easy to schedule', type: 'worth_checking' },
-      { id: 'never', label: 'Never', detail: 'Helpful to establish your baseline number', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Can be added during your next routine test', type: 'worth_checking' },
+      { id: 'longer_than_12_months', label: 'Longer than 12 months', detail: 'Metabolic checkup due for updated numbers', type: 'worth_checking' },
+      { id: 'not_sure_or_never', label: 'Not Sure/Never', detail: 'Can be added during your next routine test', type: 'worth_checking' },
     ],
     skipText: 'Skip this question',
   },
   {
     id: 'q5_history',
     category: 'FAMILY HISTORY',
-    categoryLabel: 'FAMILY HISTORY',
+    categoryLabel: 'Family History',
     stepNumber: 5,
     totalSteps: 9,
     title: 'Is there a family history of diabetes, high blood pressure, or heart disease?',
     whyWeAsk: 'Knowing if immediate relatives (parents, siblings) manage cardiovascular or metabolic conditions helps clinicians suggest earlier or more tailored screening schedules.',
     options: [
       { id: 'yes_immediate', label: 'Yes (parents or siblings)', detail: 'Highlights valuable preventive conversations to have with your doctor', type: 'discuss' },
-      { id: 'yes_extended', label: 'Yes (grandparents, aunts, uncles)', detail: 'Helpful contextual background for lifestyle prevention', type: 'worth_checking' },
       { id: 'no_history', label: 'No known history', detail: 'Continues standard age-based screening guidelines', type: 'doing_well' },
       { id: 'not_sure', label: 'Not sure / Prefer not to say', detail: 'We respect your privacy at all times', type: 'neutral' },
     ],
     skipText: 'Skip this question',
   },
   {
-    id: 'q6_activity',
-    category: 'PHYSICAL ACTIVITY',
-    categoryLabel: 'PHYSICAL ACTIVITY',
-    stepNumber: 6,
-    totalSteps: 9,
-    title: 'How active are you in a typical week?',
-    whyWeAsk: 'Regular physical activity strengthens your heart, preserves bone density, reduces hormonal anxiety, and improves insulin sensitivity across all decades.',
-    options: [
-      { id: 'active_150', label: 'Very active (150+ minutes of brisk movement/exercise)', detail: 'Meets and exceeds clinical cardiovascular targets', type: 'doing_well' },
-      { id: 'moderate', label: 'Moderately active (60–140 minutes/week)', detail: 'Solid foundation to build upon with small daily walks', type: 'doing_well' },
-      { id: 'light', label: 'Light movement (some walking/household activity)', detail: 'Adding short 10-minute movement breaks brings big benefits', type: 'worth_checking' },
-      { id: 'sedentary', label: 'Mostly sedentary (desk work, minimal movement)', detail: 'Gentle, enjoyable movement routines can make a world of difference', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q7_nutrition',
     category: 'NUTRITION',
-    categoryLabel: 'NUTRITION',
+    categoryLabel: 'Nutrition',
     stepNumber: 7,
-    totalSteps: 9,
+    totalSteps: 10,
     title: 'How often do your meals include fresh vegetables, greens, or fruit?',
     whyWeAsk: 'Fiber, potassium, and antioxidants from fresh plant foods actively regulate blood pressure, support gut microbiome balance, and nurture cardiovascular resilience.',
     options: [
@@ -140,9 +136,25 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
+    id: 'q6_activity',
+    category: 'EXERCISE',
+    categoryLabel: 'Exercise',
+    stepNumber: 8,
+    totalSteps: 10,
+    title: 'How active are you in a typical week?',
+    whyWeAsk: 'Regular physical activity strengthens your heart, preserves bone density, reduces hormonal anxiety, and improves insulin sensitivity across all decades.',
+    options: [
+      { id: 'active_150', label: 'Very active (150+ minutes of brisk movement/exercise)', detail: 'Meets and exceeds clinical cardiovascular targets', type: 'doing_well' },
+      { id: 'moderate', label: 'Moderately active (60–140 minutes/week)', detail: 'Solid foundation to build upon with small daily walks', type: 'doing_well' },
+      { id: 'light', label: 'Light movement (some walking/household activity)', detail: 'Adding short 10-minute movement breaks brings big benefits', type: 'worth_checking' },
+      { id: 'sedentary', label: 'Mostly sedentary (desk work, minimal movement)', detail: 'Gentle, enjoyable movement routines can make a world of difference', type: 'worth_checking' },
+    ],
+    skipText: 'Skip this question',
+  },
+  {
     id: 'q8_sleep',
-    category: 'SLEEP & REST',
-    categoryLabel: 'SLEEP & REST',
+    category: 'SLEEP AND REST',
+    categoryLabel: 'Sleep and Rest',
     stepNumber: 8,
     totalSteps: 9,
     title: 'How is your sleep on most nights?',
@@ -156,18 +168,19 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q9_screening',
-    category: 'WOMEN’S SCREENING',
-    categoryLabel: 'WOMEN’S SCREENING',
+    id: 'q_toxic_substances',
+    category: 'AVOIDANCE OF TOXIC SUBSTANCES',
+    categoryLabel: 'Avoidance of Toxic Substances',
     stepNumber: 9,
-    totalSteps: 9,
-    title: 'Have you discussed women’s screenings with a clinician recently?',
-    whyWeAsk: 'Screenings like Cervical Pap smears/HPV tests, Clinical Breast Exams, and Mammograms are preventive champions — catching cellular changes years before they cause trouble.',
+    totalSteps: 10,
+    title: 'Do you smoke, use tobacco/vape, or consume alcohol regularly?',
+    whyWeAsk: 'Avoiding tobacco and moderating alcohol intake are critical lifestyle factors that protect cardiovascular arteries, cellular DNA, and breast tissue health.',
     options: [
-      { id: 'up_to_date', label: 'Yes, my screenings are up to date', detail: 'Exceptional commitment to your lifelong health', type: 'doing_well' },
-      { id: 'past_overdue', label: 'Discussed in the past, but overdue', detail: 'A quick reminder to book your next routine milestone', type: 'worth_checking' },
-      { id: 'not_discussed', label: 'Haven’t discussed yet', detail: 'We have provided an easy guide on what to expect', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure which ones I need for my age', detail: 'Explore our Age-Based Screening Matrix in one tap', type: 'worth_checking' },
+      { id: 'none', label: 'No, I don’t smoke, vape, or use tobacco, and rarely/never drink alcohol', detail: 'Zero or minimal toxin exposure protects cellular longevity', type: 'doing_well' },
+      { id: 'occasional_alcohol', label: 'Occasional social alcohol only (no tobacco/vaping)', detail: 'Moderate social consumption within recommended health guidelines', type: 'doing_well' },
+      { id: 'regular_alcohol', label: 'Drink alcohol several times a week', detail: 'Moderating intake reduces liver and blood pressure strain', type: 'worth_checking' },
+      { id: 'smoke_or_vape', label: 'Currently smoke, vape, or use tobacco products', detail: 'Our clinicians can provide gentle, evidence-based cessation support', type: 'discuss' },
+      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
     ],
     skipText: 'Skip this question',
   },
@@ -175,26 +188,10 @@ export const CORE_HEALTH_QUESTIONS: Question[] = [
 
 export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
   {
-    id: 'q40_periods_irregular',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 10,
-    totalSteps: 20,
-    title: 'Have your periods become irregular?',
-    whyWeAsk: 'Changes in cycle length, flow heaviness, or skipped periods are usually the first physiological sign of fluctuating estrogen and progesterone in your 40s.',
-    options: [
-      { id: 'yes_irregular', label: 'Yes, periods have become irregular', detail: 'Changes in cycle timing, skipped cycles, or flow shifts', type: 'worth_checking' },
-      { id: 'no_regular', label: 'No, periods remain regular', detail: 'Consistent monthly cycle rhythm', type: 'doing_well' },
-      { id: 'stopped', label: 'Periods have completely stopped', detail: 'May indicate transition into menopause', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Varies significantly', detail: 'Tracking cycle dates provides clinical clarity', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q40_hot_flushes',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 11,
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
+    stepNumber: 10,
     totalSteps: 20,
     title: 'Have you experienced hot flushes?',
     whyWeAsk: 'Hot flushes are sudden surges of intense heat, facial reddening, and perspiration caused by neuro-hormonal thermoregulatory resetting in the brain.',
@@ -207,26 +204,10 @@ export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q40_night_sweats',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 12,
-    totalSteps: 20,
-    title: 'Do you experience night sweats?',
-    whyWeAsk: 'Night sweats are hot flushes occurring during sleep that can awaken you drenched, disrupting deep REM and slow-wave sleep cycles.',
-    options: [
-      { id: 'yes_frequent', label: 'Yes, waking up drenched or disturbed', detail: 'Disrupts restorative overnight sleep', type: 'discuss' },
-      { id: 'mild_occasional', label: 'Occasionally or mild warmth', detail: 'Infrequent nocturnal temperature surges', type: 'worth_checking' },
-      { id: 'no_none', label: 'No, not at all', detail: 'Comfortable nighttime body temperature', type: 'doing_well' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Occasional nighttime wakefulness', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q40_sleep_changed',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 13,
+    category: 'SLEEP AND REST',
+    categoryLabel: 'Sleep and Rest',
+    stepNumber: 11,
     totalSteps: 20,
     title: 'Has your sleep changed?',
     whyWeAsk: 'Progesterone promotes natural relaxation. Declining progesterone in your 40s often causes early morning waking (2 AM – 4 AM) or difficulty falling asleep.',
@@ -239,42 +220,10 @@ export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q40_anxiety_irritability',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 14,
-    totalSteps: 20,
-    title: 'Have you noticed increased anxiety or irritability?',
-    whyWeAsk: 'Estrogen directly modulates serotonin in the brain. Hormonal fluctuations can trigger unexpected irritability, heightened anxiety, or feeling easily overwhelmed.',
-    options: [
-      { id: 'yes_noticeable', label: 'Yes, heightened anxiety, irritability, or mood swings', detail: 'Noticeable shifts in emotional wellbeing', type: 'discuss' },
-      { id: 'mild_overwhelmed', label: 'Mild changes, feeling more easily overwhelmed', detail: 'Noticeable during high-stress periods', type: 'worth_checking' },
-      { id: 'no_stable', label: 'No, mood feels steady and resilient', detail: 'Consistent emotional balance', type: 'doing_well' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your personal privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q40_memory_concentration',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 15,
-    totalSteps: 20,
-    title: 'Have you noticed reduced memory or concentration?',
-    whyWeAsk: 'Known as perimenopausal brain fog, temporary word-finding lapses and multitasking difficulties are biological responses to estrogen shifts in the hippocampus.',
-    options: [
-      { id: 'yes_brain_fog', label: 'Yes, brain fog, forgetfulness, or concentration lapses', detail: 'Very common neuro-hormonal transition symptom', type: 'worth_checking' },
-      { id: 'mild_occasional', label: 'Mild or occasional forgetfulness', detail: 'Occasional slips when busy or tired', type: 'worth_checking' },
-      { id: 'no_sharp', label: 'No, mental focus and recall remain sharp', detail: 'Strong cognitive clarity and focus', type: 'doing_well' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Hard to separate from normal fatigue', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q40_sexual_desire',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 16,
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
+    stepNumber: 14,
     totalSteps: 20,
     title: 'Has your sexual desire changed?',
     whyWeAsk: 'Hormonal adjustments (estrogen and free testosterone) combined with sleep disruption can alter intimacy desire. Clinicians offer gentle, supportive solutions.',
@@ -287,26 +236,10 @@ export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q40_vaginal_dryness',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 17,
-    totalSteps: 20,
-    title: 'Do you experience vaginal dryness or discomfort?',
-    whyWeAsk: 'Estrogen maintains the thickness, elasticity, and natural moisture of vaginal tissue. Safe, non-systemic treatments can completely restore comfort.',
-    options: [
-      { id: 'yes_discomfort', label: 'Yes, dryness, itching, or discomfort during intimacy', detail: 'Safe, highly effective localized therapies exist', type: 'discuss' },
-      { id: 'mild_dryness', label: 'Mild or occasional dryness', detail: 'Non-hormonal moisturizers can support comfort', type: 'worth_checking' },
-      { id: 'no_discomfort', label: 'No discomfort', detail: 'Comfortable tissue hydration', type: 'doing_well' },
-      { id: 'prefer_not', label: 'Prefer not to answer', detail: 'Respecting your personal privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q40_urinary_leakage',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 18,
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
+    stepNumber: 15,
     totalSteps: 20,
     title: 'Have you experienced urinary leakage or recurrent UTIs?',
     whyWeAsk: 'Lower estrogen thins urethral tissues, and pelvic floor tone can shift. Pelvic physiotherapy and localized medical care effectively restore control.',
@@ -318,192 +251,13 @@ export const PERIMENOPAUSE_40_49_QUESTIONS: Question[] = [
     ],
     skipText: 'Skip this question',
   },
-  {
-    id: 'q40_hrt_discussion',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 19,
-    totalSteps: 20,
-    title: 'Have you discussed menopause treatment or Hormone Replacement Therapy with a healthcare professional?',
-    whyWeAsk: 'Modern Hormone Replacement Therapy (HRT) and non-hormonal clinical treatments have strong evidence for symptom relief, bone density protection, and cardiovascular resilience when started in your 40s.',
-    options: [
-      { id: 'yes_active', label: 'Yes, currently taking or exploring treatment', detail: 'Active clinical care and management in place', type: 'doing_well' },
-      { id: 'discussed_waiting', label: 'Discussed with doctor, decided to monitor', detail: 'Informed regarding treatment options', type: 'doing_well' },
-      { id: 'want_to_learn', label: 'Not yet, but would like to learn more', detail: 'An Iwosan gynaecologist can discuss tailored options', type: 'worth_checking' },
-      { id: 'never_discussed', label: 'No, have never discussed this', detail: 'A valuable topic for your next wellness consultation', type: 'discuss' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q40_last_period',
-    category: 'MIDLIFE & PERIMENOPAUSE',
-    categoryLabel: 'PERIMENOPAUSE (40–49)',
-    stepNumber: 20,
-    totalSteps: 20,
-    title: 'When was your last menstrual period?',
-    whyWeAsk: 'Menopause is clinically diagnosed when 12 consecutive months have passed without a menstrual period. Identifying your Last Menstrual Period (LMP) date helps pinpoint your exact transition stage.',
-    hasDatePicker: true,
-    datePickerLabel: 'Select date of last menstrual period',
-    options: [
-      { id: 'under_30_days', label: 'Within the last 30 days', detail: 'Recent menstrual flow', type: 'doing_well' },
-      { id: '1_to_3_months', label: '1 – 3 months ago', detail: 'Early cycle spacing / perimenopause', type: 'worth_checking' },
-      { id: '4_to_11_months', label: '4 – 11 months ago', detail: 'Late perimenopause transition', type: 'worth_checking' },
-      { id: 'over_12_months', label: '12+ months ago (No period for a full year)', detail: 'Clinical indicator of post-menopause', type: 'discuss' },
-      { id: 'unsure_irregular', label: 'Periods are irregular / Unsure of exact date', detail: 'Active cycle tracking is recommended', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
 ];
 
 export const MENSTRUAL_20_49_QUESTIONS: Question[] = [
   {
-    id: 'q2049_periods_regular',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Are your periods regular?',
-    whyWeAsk: 'A regular cycle (every 21–35 days) is a vital indicator of ovarian hormone function and metabolic balance.',
-    options: [
-      { id: 'yes', label: 'Yes, regular and predictable', detail: 'Cycles arrive every 21–35 days', type: 'doing_well' },
-      { id: 'no_irregular', label: 'No, irregular or unpredictable', detail: 'Dates or cycle spacing fluctuate', type: 'worth_checking' },
-      { id: 'absent', label: 'Periods have stopped / Absent', detail: 'Absent for 3+ months', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Varies', detail: 'Cycle tracking can help establish patterns', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_cycle_length',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How many days is your usual cycle?',
-    whyWeAsk: 'Counting from day 1 of one period to day 1 of the next helps identify short or prolonged ovulatory intervals.',
-    options: [
-      { id: '21_to_35', label: '21 – 35 days', detail: 'Standard healthy physiological interval', type: 'doing_well' },
-      { id: 'under_21', label: 'Under 21 days', detail: 'Frequent or closely spaced bleeding', type: 'worth_checking' },
-      { id: 'over_35', label: 'More than 35 days', detail: 'Infrequent or delayed cycle intervals', type: 'worth_checking' },
-      { id: 'varies_wildly', label: 'Varies wildly each month', detail: 'Unpredictable cycle intervals', type: 'discuss' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_bleed_days',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How many days do you usually bleed?',
-    whyWeAsk: 'Normal menstrual flow lasts 3 to 7 days. Bleeding exceeding 7 days can gradually deplete iron stores.',
-    options: [
-      { id: '3_to_7_days', label: '3 to 7 days', detail: 'Standard healthy duration', type: 'doing_well' },
-      { id: 'under_3_days', label: 'Less than 3 days', detail: 'Short or light bleeding window', type: 'neutral' },
-      { id: '8_days_or_more', label: '8 days or more', detail: 'Prolonged bleeding; screening for anemia is recommended', type: 'discuss' },
-      { id: 'varies', label: 'Varies from cycle to cycle', detail: 'Duration varies month to month', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_bleed_heaviness',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Would you describe your bleeding as light, moderate or heavy?',
-    whyWeAsk: 'Heavy flow (soaking through protection every 1–2 hours) is common and treatable, frequently linked to fibroids or hormonal imbalances.',
-    options: [
-      { id: 'moderate', label: 'Moderate (manageable flow)', detail: 'Changing pad/tampon every 3–4 hours', type: 'doing_well' },
-      { id: 'light', label: 'Light / Scanty flow', detail: 'Minimal sanitary protection required', type: 'neutral' },
-      { id: 'heavy', label: 'Heavy (soaking through rapidly)', detail: 'Needing to change every 1–2 hours or double up protection', type: 'discuss' },
-      { id: 'varies', label: 'Varies between cycles', detail: 'Some heavy and some light months', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_period_pain',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you experience severe period pain?',
-    whyWeAsk: 'Severe pelvic pain that forces bed rest or missed work should not be normalized; effective clinical care is available.',
-    options: [
-      { id: 'none_mild', label: 'No, or mild manageable cramps', detail: 'Does not impair daily routine', type: 'doing_well' },
-      { id: 'moderate', label: 'Moderate cramps', detail: 'Relieved with over-the-counter pain medication', type: 'neutral' },
-      { id: 'severe', label: 'Yes, severe or debilitating pain', detail: 'Forces bed rest, missing work or school', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_large_clots',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you pass large clots?',
-    whyWeAsk: 'Passing clots larger than a coin often signals uterine shedding that overwhelms natural anticoagulation, commonly seen with fibroids.',
-    options: [
-      { id: 'never_small', label: 'No, or only very tiny occasional clots', detail: 'Normal menstrual texture', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes (coin-sized occasionally)', detail: 'Noticeable on peak flow days', type: 'worth_checking' },
-      { id: 'frequent_large', label: 'Yes, frequently or clots larger than a coin', detail: 'Pelvic ultrasound and ferritin check recommended', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Unsure of clot size', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_bleed_between',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you bleed between periods?',
-    whyWeAsk: 'Intermenstrual spotting can stem from cervical inflammation, hormonal dips, or polyps and is easily checked by a clinician.',
-    options: [
-      { id: 'never', label: 'No, never', detail: 'Clean intervals between cycles', type: 'doing_well' },
-      { id: 'occasional_spotting', label: 'Light spotting around ovulation occasionally', detail: 'Mid-cycle hormonal dip', type: 'worth_checking' },
-      { id: 'frequent', label: 'Yes, frequent spotting or bleeding between cycles', detail: 'Warrants gentle clinical examination', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Unsure of spotting timing', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_bleed_after_sex',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you bleed after sex?',
-    whyWeAsk: 'Post-coital bleeding is an important red-flag symptom that warrants a gentle visual cervical exam and Pap/HPV check.',
-    options: [
-      { id: 'never', label: 'No, never', detail: 'No post-coital spotting', type: 'doing_well' },
-      { id: 'happened_once', label: 'Has happened once or twice', detail: 'Worth discussing at your next routine checkup', type: 'worth_checking' },
-      { id: 'frequent', label: 'Yes, repeatedly or noticeably', detail: 'Prompt cervical evaluation recommended', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to answer', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2049_period_interference',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do your periods interfere with your work or normal activities?',
-    whyWeAsk: 'Periods should not force you to put your career or life on hold. Effective treatments exist to restore full vitality.',
-    options: [
-      { id: 'never', label: 'No, rarely or never', detail: 'Able to continue normal daily activities', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes (first day or two feels tough)', detail: 'Manageable with supportive self-care', type: 'worth_checking' },
-      { id: 'often_severe', label: 'Yes, frequently forces bed rest or missing work', detail: 'Our gynaecologists can provide tailored cycle support', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q2049_period_changes_2yr',
-    category: 'MENSTRUAL HEALTH',
-    categoryLabel: 'MENSTRUAL HEALTH (20–49)',
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
     stepNumber: 0,
     totalSteps: 0,
     title: 'Have your periods changed significantly in the last two years?',
@@ -520,90 +274,9 @@ export const MENSTRUAL_20_49_QUESTIONS: Question[] = [
 
 export const PREGNANCY_20_50_QUESTIONS: Question[] = [
   {
-    id: 'q2050_trying_pregnancy',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Are you currently trying to become pregnant?',
-    whyWeAsk: 'Preconception health (folic acid, hemoglobin, immunity screening) creates the healthiest start for both mother and child.',
-    options: [
-      { id: 'yes_trying', label: 'Yes, actively trying to conceive', detail: 'Preconception screening & folic acid recommended', type: 'doing_well' },
-      { id: 'planning_future', label: 'Not now, but planning in the next 1–2 years', detail: 'Great time for a baseline fertility checkup', type: 'doing_well' },
-      { id: 'no', label: 'No, not trying to conceive', detail: 'Focusing on preventive health & wellness', type: 'neutral' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_difficulty_pregnancy',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever experienced difficulty becoming pregnant?',
-    whyWeAsk: 'Trying for 12+ months (or 6+ months over 35) is very common and benefits from early gentle clinical assessment.',
-    options: [
-      { id: 'no_difficulty', label: 'No difficulty, conceived easily or haven’t tried', detail: 'No history of subfertility', type: 'doing_well' },
-      { id: 'took_over_year', label: 'Yes, took over 12 months in the past', detail: 'Helpful background context for your clinician', type: 'worth_checking' },
-      { id: 'currently_facing', label: 'Yes, currently experiencing difficulty', detail: 'A reproductive specialist can identify solutions', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_miscarriage',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever had a miscarriage?',
-    whyWeAsk: 'Early pregnancy loss occurs in 15–20% of recognized pregnancies. Recurrent losses can be evaluated for hormonal or anatomical factors.',
-    options: [
-      { id: 'none', label: 'No, never experienced a miscarriage', detail: 'No history of early loss', type: 'doing_well' },
-      { id: 'one', label: 'Yes, one miscarriage', detail: 'Very common isolated event with normal future outcomes', type: 'neutral' },
-      { id: 'recurrent', label: 'Yes, two or more miscarriages', detail: 'Recurrent loss screening and supportive care advised', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_ectopic',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever had an ectopic pregnancy?',
-    whyWeAsk: 'An ectopic pregnancy history highlights the need for an early transvaginal ultrasound in any future pregnancy.',
-    options: [
-      { id: 'no', label: 'No, never', detail: 'No history of ectopic pregnancy', type: 'doing_well' },
-      { id: 'yes', label: 'Yes, had an ectopic pregnancy in the past', detail: 'Early ultrasound in future pregnancies is key', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Unconfirmed', detail: 'Unsure of past diagnosis', type: 'neutral' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_pregnancy_complications',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever had pregnancy complications?',
-    whyWeAsk: 'Preeclampsia or gestational diabetes are important predictive markers for long-term heart and metabolic health.',
-    options: [
-      { id: 'no_complications', label: 'No complications or haven’t been pregnant', detail: 'Smooth obstetric history', type: 'doing_well' },
-      { id: 'gestational_diabetes', label: 'Yes, Gestational Diabetes', detail: 'Annual fasting blood sugar check advised', type: 'discuss' },
-      { id: 'preeclampsia_htn', label: 'Yes, Pre-eclampsia / High blood pressure during pregnancy', detail: 'Cardiovascular screening recommended', type: 'discuss' },
-      { id: 'preterm_other', label: 'Yes, Preterm delivery or other complication', detail: 'Helpful context for obstetric management', type: 'worth_checking' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q2050_fibroids_endo_pcos',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
     stepNumber: 0,
     totalSteps: 0,
     title: 'Have you ever been diagnosed with fibroids, endometriosis or PCOS?',
@@ -618,80 +291,13 @@ export const PREGNANCY_20_50_QUESTIONS: Question[] = [
     ],
     skipText: 'Skip this question',
   },
-  {
-    id: 'q2050_periods_current_regular',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Are your periods currently regular?',
-    whyWeAsk: 'Confirming ongoing cycle regularity helps identify emerging ovulatory or hormonal disruptions.',
-    options: [
-      { id: 'yes', label: 'Yes, currently regular', detail: 'Predictable monthly cycle timing', type: 'doing_well' },
-      { id: 'irregular', label: 'No, currently irregular', detail: 'Cycle timing varies', type: 'worth_checking' },
-      { id: 'no_periods', label: 'No periods currently (menopause, pregnancy, or medication)', detail: 'Absence of periods', type: 'neutral' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Unsure of cycle pattern', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_pregnancy_count',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How many pregnancies have you had?',
-    whyWeAsk: 'Obstetric history guides pelvic floor health, cervical wellness, and personalized future screening.',
-    options: [
-      { id: 'zero', label: 'None (0)', detail: 'Nulliparous', type: 'neutral' },
-      { id: 'one_to_two', label: '1 to 2 pregnancies', detail: 'Standard obstetric background', type: 'neutral' },
-      { id: 'three_to_four', label: '3 to 4 pregnancies', detail: 'Multiparous background', type: 'neutral' },
-      { id: 'five_or_more', label: '5 or more pregnancies', detail: 'Pelvic floor support & bone checks advised', type: 'worth_checking' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_pregnancy_after_35',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you had a pregnancy after age 35?',
-    whyWeAsk: 'Pregnancies at or after age 35 benefit from attentive blood pressure, gestational glucose, and chromosomal monitoring.',
-    options: [
-      { id: 'yes', label: 'Yes, have had a pregnancy at or after 35', detail: 'Helpful obstetric context', type: 'neutral' },
-      { id: 'planning', label: 'Currently pregnant or planning after 35', detail: 'Focused prenatal care provides great outcomes', type: 'doing_well' },
-      { id: 'no', label: 'No, pregnancies were before 35, or never pregnant', detail: 'Standard timing', type: 'neutral' },
-      { id: 'not_applicable', label: 'Not applicable', detail: 'Non-applicable history', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q2050_contraception',
-    category: 'FERTILITY & PREGNANCY',
-    categoryLabel: 'FERTILITY & REPRODUCTIVE HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Are you currently using contraception?',
-    whyWeAsk: 'Contraception planning ensures bodily autonomy, family planning, and can also help control heavy period flow.',
-    options: [
-      { id: 'yes_hormonal', label: 'Yes, hormonal (pill, implant, injection, hormonal IUD)', detail: 'Provides effective pregnancy prevention and lighter cycles', type: 'doing_well' },
-      { id: 'yes_copper_iud', label: 'Yes, Copper IUD (non-hormonal)', detail: 'Long-term, hormone-free protection', type: 'doing_well' },
-      { id: 'yes_barrier', label: 'Yes, condoms or barrier method', detail: 'Dual protection against STIs and pregnancy', type: 'doing_well' },
-      { id: 'permanent', label: 'Permanent method (tubal ligation or partner vasectomy)', detail: 'Permanent protection', type: 'doing_well' },
-      { id: 'no_not_using', label: 'No, not currently using contraception', detail: 'A clinician can help explore modern options', type: 'neutral' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
 ];
 
 export const BREAST_GYNAE_QUESTIONS: Question[] = [
   {
     id: 'q_breast_self_check',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
+    category: 'GENERAL WOMENS HEALTH',
+    categoryLabel: "General Women's Health",
     stepNumber: 0,
     totalSteps: 0,
     title: 'Do you regularly check or notice changes in your breasts?',
@@ -705,73 +311,9 @@ export const BREAST_GYNAE_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q_breast_lump',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you noticed a new breast lump?',
-    whyWeAsk: 'Most lumps are benign cysts or fibroadenomas, but any new or firm lump warrants prompt clinical examination and ultrasound.',
-    options: [
-      { id: 'no', label: 'No, no lumps noticed', detail: 'Normal baseline tissue', type: 'doing_well' },
-      { id: 'yes_new_lump', label: 'Yes, noticed a new or persistent lump', detail: 'Prompt clinical evaluation and ultrasound strongly advised', type: 'discuss' },
-      { id: 'past_benign_lump', label: 'Had a lump in the past (confirmed benign)', detail: 'Monitored with clinician', type: 'doing_well' },
-      { id: 'not_sure', label: 'Not sure / Unsure of tissue feel', detail: 'A clinical breast exam provides total clarity', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_nipple_discharge',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you noticed unusual nipple discharge?',
-    whyWeAsk: 'Spontaneous, clear, or bloody discharge from one nipple should be reviewed promptly by an experienced breast clinician.',
-    options: [
-      { id: 'never', label: 'No, never', detail: 'No nipple secretion noted', type: 'doing_well' },
-      { id: 'milky_bilateral', label: 'Milky discharge from both sides', detail: 'Can be linked to prolactin or thyroid; easily evaluated', type: 'worth_checking' },
-      { id: 'spontaneous_bloody', label: 'Spontaneous, clear, or blood-stained discharge', detail: 'Warrants prompt clinical breast examination', type: 'discuss' },
-      { id: 'breastfeeding', label: 'Currently breastfeeding or recently stopped', detail: 'Normal lactation physiology', type: 'doing_well' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_breast_shape_change',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you noticed a change in the shape or appearance of a breast?',
-    whyWeAsk: 'Noticeable asymmetry, contour flattening, or breast swelling warrants an in-person clinical assessment.',
-    options: [
-      { id: 'no_changes', label: 'No, shape and contour appear normal', detail: 'Consistent breast appearance', type: 'doing_well' },
-      { id: 'yes_recent_change', label: 'Yes, recent change in contour, shape, or size', detail: 'Clinical breast exam recommended', type: 'discuss' },
-      { id: 'slight_longstanding', label: 'Slight natural asymmetry (always had it)', detail: 'Natural anatomical variation', type: 'doing_well' },
-      { id: 'not_sure', label: 'Not sure', detail: 'A routine clinical check gives peace of mind', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_nipple_skin_changes',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you noticed nipple or skin changes?',
-    whyWeAsk: 'Skin dimpling, puckering (orange peel texture), or a newly inverted nipple should be professionally examined.',
-    options: [
-      { id: 'no_skin_changes', label: 'No, skin and nipples appear normal', detail: 'Healthy breast surface', type: 'doing_well' },
-      { id: 'dimpling_puckering', label: 'Skin dimpling, puckering, or redness', detail: 'Prompt clinical evaluation advised', type: 'discuss' },
-      { id: 'newly_inverted_nipple', label: 'Nipple has newly pulled inward (retracted)', detail: 'Clinical check recommended', type: 'discuss' },
-      { id: 'mild_dryness', label: 'Mild dry skin or friction itch', detail: 'Common dermatological friction', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q_last_mammogram',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
+    category: 'AVOIDANCE OF TOXIC SUBSTANCES',
+    categoryLabel: 'Avoidance of Toxic Substances',
     stepNumber: 0,
     totalSteps: 0,
     title: 'When was your last mammogram/breast imaging?',
@@ -785,95 +327,13 @@ export const BREAST_GYNAE_QUESTIONS: Question[] = [
     ],
     skipText: 'Skip this question',
   },
-  {
-    id: 'q_last_cervical_screen',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'When was your last cervical screening/Pap or HPV test?',
-    whyWeAsk: 'Cervical Pap smears and HPV DNA testing can prevent up to 90% of cervical cancers by detecting precancerous cells early.',
-    options: [
-      { id: 'within_3_years', label: 'Within the last 3 years', detail: 'Up to date with cervical wellness guidelines', type: 'doing_well' },
-      { id: '3_to_5_years', label: '3 to 5 years ago', detail: 'Screening update may be due soon', type: 'worth_checking' },
-      { id: 'more_than_5_years', label: 'More than 5 years ago', detail: 'Overdue for a routine 5-minute swab', type: 'discuss' },
-      { id: 'never', label: 'Never had a Pap or HPV test', detail: 'A gentle first test provides invaluable lifelong protection', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure of last screening date', detail: 'Easy to schedule with Iwosan', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_hpv_positive',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever tested positive for HPV?',
-    whyWeAsk: 'Human Papillomavirus is extremely common. High-risk strains are easily monitored with colposcopy to keep you completely safe.',
-    options: [
-      { id: 'never_tested_negative', label: 'No, tested negative or never had HPV', detail: 'Normal screening status', type: 'doing_well' },
-      { id: 'tested_positive_cleared', label: 'Tested positive in the past, now cleared', detail: 'Immune system successfully cleared the virus', type: 'doing_well' },
-      { id: 'currently_positive', label: 'Currently HPV positive / Under monitoring', detail: 'Active clinical monitoring advised', type: 'worth_checking' },
-      { id: 'never_screened_for_hpv', label: 'Never had an HPV specific test', detail: 'HPV DNA testing is the modern global gold standard', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_abnormal_cervical',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever had an abnormal cervical screening result?',
-    whyWeAsk: 'Abnormal smears (ASCUS, LSIL, HSIL) are very common precancerous cellular changes that are readily treatable before causing disease.',
-    options: [
-      { id: 'never_all_normal', label: 'No, all past tests were completely normal', detail: 'Clean screening record', type: 'doing_well' },
-      { id: 'yes_treated_cleared', label: 'Yes, had abnormal result in past (treated or resolved)', detail: 'Successfully managed', type: 'doing_well' },
-      { id: 'currently_abnormal', label: 'Yes, recent abnormal result pending follow-up', detail: 'Colposcopy follow-up recommended', type: 'discuss' },
-      { id: 'never_screened', label: 'Never been screened', detail: 'First screening recommended', type: 'worth_checking' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_family_cancer_history',
-    category: 'BREAST & GYNAECOLOGICAL HEALTH',
-    categoryLabel: 'BREAST & GYNAECOLOGY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Does your family have a history of breast, ovarian, cervical or endometrial cancer?',
-    whyWeAsk: 'First-degree family history (mother, sister, daughter) can guide earlier mammogram entry or genetic testing (BRCA1/BRCA2).',
-    options: [
-      { id: 'no_family_history', label: 'No known family history', detail: 'Standard age-based screening guidelines apply', type: 'doing_well' },
-      { id: 'one_first_degree', label: 'Yes, one first-degree relative (mother, sister, daughter)', detail: 'Start mammograms 10 years earlier than their diagnosis', type: 'discuss' },
-      { id: 'extended_relatives', label: 'Yes, extended relatives (aunts, grandmothers)', detail: 'Helpful contextual background for preventive care', type: 'worth_checking' },
-      { id: 'multiple_relatives', label: 'Yes, multiple relatives with cancer diagnosed under age 50', detail: 'Genetic counseling & early screening strongly advised', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
 ];
 
 export const BONE_MOBILITY_QUESTIONS: Question[] = [
   {
-    id: 'q_bone_minor_fracture',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever broken a bone from a minor fall or accident?',
-    whyWeAsk: 'A fragility fracture (breaking a bone from standing height or less) is the primary clinical indicator of underlying osteopenia or osteoporosis.',
-    options: [
-      { id: 'never_broken', label: 'No, never broken a bone', detail: 'Good bone resilience', type: 'doing_well' },
-      { id: 'high_impact_only', label: 'Broken a bone, but only from severe high-impact trauma', detail: 'Expected response to high force', type: 'neutral' },
-      { id: 'minor_fall_fracture', label: 'Yes, broke a wrist, hip, or bone from a minor slip/fall', detail: 'DEXA bone density scan strongly advised', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure', detail: 'Unsure of fracture cause', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q_bone_density_test',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
+    category: 'EXERCISE',
+    categoryLabel: 'Exercise',
     stepNumber: 0,
     totalSteps: 0,
     title: 'Have you ever had a bone density test?',
@@ -887,89 +347,9 @@ export const BONE_MOBILITY_QUESTIONS: Question[] = [
     skipText: 'Skip this question',
   },
   {
-    id: 'q_persistent_back_pain',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you experience persistent back pain?',
-    whyWeAsk: 'Chronic back pain can stem from postural strain, disc wear, or silent vertebral compression fractures linked to bone density changes.',
-    options: [
-      { id: 'no_pain', label: 'No, rare or no back pain', detail: 'Strong spinal comfort and posture', type: 'doing_well' },
-      { id: 'occasional_posture', label: 'Occasional ache after sitting or long days', detail: 'Postural fatigue; core exercises help', type: 'worth_checking' },
-      { id: 'persistent_severe', label: 'Yes, persistent or severe back pain', detail: 'Clinical spinal evaluation & posture review advised', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_persistent_joint_pain',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you experience persistent joint pain?',
-    whyWeAsk: 'Joint stiffness and pain in the knees, hips, or fingers can reflect osteoarthritis or estrogen-deficiency musculoskeletal aches.',
-    options: [
-      { id: 'no_joint_pain', label: 'No, joints feel smooth and comfortable', detail: 'Healthy joint mobility', type: 'doing_well' },
-      { id: 'morning_stiffness', label: 'Morning stiffness that eases with movement', detail: 'Early joint wear; low-impact exercise helps', type: 'worth_checking' },
-      { id: 'persistent_pain', label: 'Yes, persistent joint pain or swelling', detail: 'Evaluation for arthritis or inflammation advised', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_height_loss',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you noticed a reduction in your height?',
-    whyWeAsk: 'Losing more than 3 cm (1.5 inches) of height is a key physical sign of silent spinal bone compression fractures from osteoporosis.',
-    options: [
-      { id: 'no_loss', label: 'No, height has remained unchanged', detail: 'Stable vertebral height', type: 'doing_well' },
-      { id: 'slight_loss', label: 'Yes, noticed clothes fit differently or slight loss', detail: 'DEXA scan recommended to check bone density', type: 'worth_checking' },
-      { id: 'marked_loss', label: 'Yes, measured loss of 3 cm (over 1 inch)', detail: 'Clear indication for bone mineral density evaluation', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Haven’t measured recently', detail: 'Measure height annually at wellness checks', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_feel_physically_weaker',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you feel physically weaker than you used to?',
-    whyWeAsk: 'Age-related muscle loss (sarcopenia) accelerates after age 30 but can be entirely reversed through regular resistance exercises and dietary protein.',
-    options: [
-      { id: 'strong_capable', label: 'No, feel physically strong and capable', detail: 'Maintained lean muscle mass', type: 'doing_well' },
-      { id: 'slightly_weaker', label: 'Slightly weaker with heavy lifting or groceries', detail: 'Adding gentle strength training restores power', type: 'worth_checking' },
-      { id: 'noticeably_weaker', label: 'Yes, notice a marked decline in strength or grip', detail: 'Physical therapy and muscle strengthening advised', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_climb_stairs',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Can you comfortably climb two flights of stairs?',
-    whyWeAsk: 'Climbing two flights of stairs without stopping is a practical cardiovascular and lower-body strength benchmark.',
-    options: [
-      { id: 'easily', label: 'Yes, easily without stopping or shortness of breath', detail: 'Good cardiovascular & leg strength reserve', type: 'doing_well' },
-      { id: 'with_effort', label: 'Yes, but feel winded or tired afterwards', detail: 'Aerobic fitness can be elevated with daily walking', type: 'worth_checking' },
-      { id: 'struggle_unable', label: 'No, struggle or avoid stairs due to pain/breathlessness', detail: 'Cardiovascular and joint evaluation recommended', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
     id: 'q_strength_exercise',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
+    category: 'EXERCISE',
+    categoryLabel: 'Exercise',
     stepNumber: 0,
     totalSteps: 0,
     title: 'Do you do regular strength/resistance exercise?',
@@ -982,109 +362,13 @@ export const BONE_MOBILITY_QUESTIONS: Question[] = [
     ],
     skipText: 'Skip this question',
   },
-  {
-    id: 'q_calcium_foods',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you regularly consume calcium-rich foods?',
-    whyWeAsk: 'Women need 1,000–1,200 mg of calcium daily from dairy, fortified plant milks, small whole fish (sardines), dark greens, and seeds.',
-    options: [
-      { id: 'daily_rich', label: 'Daily (dairy, yoghurt, dark greens, or supplements)', detail: 'Adequate dietary calcium intake', type: 'doing_well' },
-      { id: 'few_times_week', label: 'A few times a week', detail: 'Consider adding more calcium-dense foods daily', type: 'worth_checking' },
-      { id: 'rarely_never', label: 'Rarely (lactose intolerant or low dairy/greens)', detail: 'Discuss calcium & Vitamin D3 options with doctor', type: 'worth_checking' },
-      { id: 'not_sure', label: 'Not sure of dietary calcium amount', detail: 'A quick nutrition review can verify', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_osteoporosis_dx',
-    category: 'BONE, MUSCLE & MOBILITY',
-    categoryLabel: 'BONE & MOBILITY (20–60+)',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Have you ever been told you have osteopenia or osteoporosis?',
-    whyWeAsk: 'Knowing your bone density diagnosis ensures you receive targeted medical therapy to prevent debilitating fractures.',
-    options: [
-      { id: 'no', label: 'No, bone density is normal or haven’t been diagnosed', detail: 'Standard preventive care', type: 'doing_well' },
-      { id: 'osteopenia', label: 'Yes, diagnosed with Osteopenia (mild bone thinning)', detail: 'Lifestyle & nutritional intervention helps prevent progression', type: 'worth_checking' },
-      { id: 'osteoporosis', label: 'Yes, diagnosed with Osteoporosis', detail: 'Prescription bone-building treatment advised', type: 'discuss' },
-      { id: 'not_sure', label: 'Not sure / Never been tested', detail: 'Screening available at Iwosan', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
 ];
 
-export const MENTAL_EMOTIONAL_QUESTIONS: Question[] = [
-  {
-    id: 'q_current_mood',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How would you describe your current mood?',
-    whyWeAsk: 'Emotional wellbeing directly impacts immune health, heart health, and sleep architecture.',
-    options: [
-      { id: 'good', label: 'Good (feeling positive, energetic, or content)', detail: 'Positive emotional baseline', type: 'doing_well' },
-      { id: 'okay', label: 'Okay (getting through daily life reasonably well)', detail: 'Stable, functioning baseline', type: 'neutral' },
-      { id: 'low', label: 'Low (feeling persistently sad, flat, or down)', detail: 'Gentle, supportive mental wellness care is available', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_anxious_overwhelmed',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How often do you feel anxious or overwhelmed?',
-    whyWeAsk: 'Chronic anxiety elevates cortisol and blood pressure. Developing proactive coping strategies protects mind and body.',
-    options: [
-      { id: 'never', label: 'Never or rarely', detail: 'Calm, grounded nervous system', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes (when work or family pressure builds)', detail: 'Manageable situational stress', type: 'worth_checking' },
-      { id: 'often', label: 'Often (frequently feeling on edge or overwhelmed)', detail: 'Professional anxiety support can provide immediate relief', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_exhausted_responsibilities',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'How often do you feel exhausted by everyday responsibilities?',
-    whyWeAsk: 'Burnout from balancing career, family, and eldercare is exceptionally high among women. Recognizing exhaustion is the first step toward self-care.',
-    options: [
-      { id: 'rarely_never', label: 'Rarely or never', detail: 'Sustainable energy balance', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes (busy periods feel tiring)', detail: 'Common workload pressure', type: 'worth_checking' },
-      { id: 'often', label: 'Often (feeling chronically depleted or burnt out)', detail: 'Prioritizing rest and boundaries is medically essential', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
-  {
-    id: 'q_enjoy_activities',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
-    stepNumber: 0,
-    totalSteps: 0,
-    title: 'Do you regularly enjoy things you used to enjoy?',
-    whyWeAsk: 'Anhedonia (losing interest in hobbies or activities that brought joy) is a cardinal indicator of depressive fatigue that responds well to support.',
-    options: [
-      { id: 'yes_regularly', label: 'Yes, regularly find joy and fulfillment', detail: 'Healthy emotional reward connection', type: 'doing_well' },
-      { id: 'sometimes', label: 'Sometimes, but feel less interested recently', detail: 'Early indicator of emotional burnout', type: 'worth_checking' },
-      { id: 'rarely_not_at_all', label: 'Rarely or not at all', detail: 'Speaking with a counsellor or clinician can help rekindle joy', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
-    skipText: 'Skip this question',
-  },
+export const SOCIAL_CONNECTEDNESS_QUESTIONS: Question[] = [
   {
     id: 'q_feel_lonely',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
     stepNumber: 0,
     totalSteps: 0,
     title: 'Do you feel lonely?',
@@ -1099,8 +383,8 @@ export const MENTAL_EMOTIONAL_QUESTIONS: Question[] = [
   },
   {
     id: 'q_have_confidant',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    category: 'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+    categoryLabel: 'Social Connectedness and Relationship',
     stepNumber: 0,
     totalSteps: 0,
     title: 'Do you feel you have someone you can talk to when things are difficult?',
@@ -1113,114 +397,260 @@ export const MENTAL_EMOTIONAL_QUESTIONS: Question[] = [
     ],
     skipText: 'Skip this question',
   },
+];
+
+const PHQ9_OPTIONS: QuestionOption[] = [
+  { id: 'not_at_all', label: 'Not at all', type: 'doing_well' },
+  { id: 'several_days', label: 'Several days', type: 'worth_checking' },
+  { id: 'more_than_half', label: 'More than half the days', type: 'discuss' },
+  { id: 'nearly_every_day', label: 'Nearly every day', type: 'discuss' },
+];
+
+const PHQ9_SAFETY_OPTIONS: QuestionOption[] = [
+  { id: 'not_at_all', label: 'Not at all', type: 'doing_well' },
+  { id: 'several_days', label: 'Several days', type: 'discuss' },
+  { id: 'more_than_half', label: 'More than half the days', type: 'discuss' },
+  { id: 'nearly_every_day', label: 'Nearly every day', type: 'discuss' },
+];
+
+export const MENTAL_HEALTH_QUESTIONS: Question[] = [
   {
-    id: 'q_current_stress',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    id: 'phq1_interest',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'How would you rate your current stress?',
-    whyWeAsk: 'Subjective stress perception is one of the strongest modifiers of vascular inflammation and blood sugar control.',
-    options: [
-      { id: 'low', label: 'Low (stress feels manageable and balanced)', detail: 'Healthy nervous system resilience', type: 'doing_well' },
-      { id: 'moderate', label: 'Moderate (noticeable pressures, but coping)', detail: 'Proactive breathwork & rest help buffer stress', type: 'worth_checking' },
-      { id: 'high', label: 'High (stress feels near breaking point)', detail: 'Clinical stress management and wellness support advised', type: 'discuss' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
+    title: 'Little interest or pleasure in doing things?',
+    whyWeAsk: 'Losing interest or pleasure in daily activities (anhedonia) is a core biological indicator of emotional burnout or mood shifts that responds well to gentle support.',
+    options: PHQ9_OPTIONS,
     skipText: 'Skip this question',
   },
   {
-    id: 'q_grief_trauma',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    id: 'phq2_depressed',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Have you experienced significant grief or trauma recently?',
-    whyWeAsk: 'Bereavement, divorce, medical trauma, or acute life shock requires gentle, unhurried space and specialized emotional care.',
-    options: [
-      { id: 'no', label: 'No, no major recent trauma or bereavement', detail: 'Stable emotional landscape', type: 'doing_well' },
-      { id: 'yes_past_year', label: 'Yes, experienced a major loss or trauma within the past year', detail: 'Grief counselling offers compassionate support', type: 'discuss' },
-      { id: 'past_processing', label: 'Experienced trauma in the past, still processing', detail: 'Ongoing healing journey', type: 'worth_checking' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
+    title: 'Feeling down, depressed or hopeless?',
+    whyWeAsk: 'Persistent sadness or feeling low affects vitality, cardiovascular rhythm, and immunity. Checking in provides compassionate baseline awareness.',
+    options: PHQ9_OPTIONS,
     skipText: 'Skip this question',
   },
   {
-    id: 'q_sought_mental_help',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    id: 'phq3_sleep',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Have you ever sought professional help for your mental health?',
-    whyWeAsk: 'Seeking therapy or psychiatric consultation is a powerful act of self-advocacy and strength.',
-    options: [
-      { id: 'yes_currently_past', label: 'Yes, currently seeing a professional or have in the past', detail: 'Proactive engagement with mental healthcare', type: 'doing_well' },
-      { id: 'no_interested', label: 'No, but would like to explore speaking with a therapist', detail: 'Our Iwosan mental health team can connect you', type: 'worth_checking' },
-      { id: 'no_not_needed', label: 'No, have not felt the need for professional help', detail: 'Maintaining positive self-care', type: 'doing_well' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Respecting your privacy', type: 'neutral' },
-    ],
+    title: 'Trouble falling or staying asleep, or sleeping too much?',
+    whyWeAsk: 'Sleep patterns and emotional regulation share neurochemical pathways. Disrupted sleep can reflect underlying nervous system strain.',
+    options: PHQ9_OPTIONS,
     skipText: 'Skip this question',
   },
   {
-    id: 'q_self_harm_thoughts',
-    category: 'MENTAL & EMOTIONAL HEALTH',
-    categoryLabel: 'MENTAL & EMOTIONAL HEALTH',
+    id: 'phq4_tired',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
     stepNumber: 0,
     totalSteps: 0,
-    title: 'Have you had thoughts of hurting yourself or not wanting to be alive?',
-    whyWeAsk: 'Your safety and emotional life matter deeply. If you are experiencing dark thoughts, immediate compassionate, confidential support is available right now.',
+    title: 'Feeling tired or having little energy?',
+    whyWeAsk: 'Chronic fatigue can stem from emotional exhaustion, hormonal transitions, or nutrient depletion. Recognizing low energy is the first step toward replenishment.',
+    options: PHQ9_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'phq5_appetite',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Poor appetite or overeating?',
+    whyWeAsk: 'Appetite shifts frequently accompany stress and mood fluctuations due to brain-gut signalling changes.',
+    options: PHQ9_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'phq6_self_worth',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Feeling bad about yourself, or that you have let others down?',
+    whyWeAsk: 'Excessive guilt or feelings of inadequacy often arise during burnout or depression, particularly among women carrying heavy responsibilities.',
+    options: PHQ9_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'phq7_concentration',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Trouble concentrating on reading or work tasks?',
+    whyWeAsk: 'Cognitive fatigue and difficulty focusing are very common when the mind is carrying elevated stress or low mood.',
+    options: PHQ9_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'phq8_psychomotor',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Moving or speaking slowly, or being fidgety and restless?',
+    whyWeAsk: 'Psychomotor changes (slowing down or agitation) reflect how emotional strain directly translates into physical nervous system rhythms.',
+    options: PHQ9_OPTIONS,
+    skipText: 'Skip this question',
+  },
+  {
+    id: 'phq9_self_harm',
+    category: 'MENTAL HEALTH AND MINDFULNESS',
+    categoryLabel: 'Mental health and Mindfulness',
+    stepNumber: 0,
+    totalSteps: 0,
+    title: 'Thoughts that you would be better off dead, or hurting yourself?',
+    whyWeAsk: 'Your safety, life, and emotional wellbeing matter deeply. If you are experiencing dark thoughts, immediate compassionate, confidential support is available right now.',
     isSafetyQuestion: true,
-    options: [
-      { id: 'yes', label: 'Yes', detail: 'Immediate, compassionate safety pathway and confidential support', type: 'discuss' },
-      { id: 'no', label: 'No', detail: 'No thoughts of self-harm', type: 'doing_well' },
-      { id: 'prefer_not', label: 'Prefer not to say', detail: 'Support is always available if ever needed', type: 'neutral' },
-    ],
+    options: PHQ9_SAFETY_OPTIONS,
     skipText: 'Skip this question',
   },
 ];
 
+export const MENTAL_EMOTIONAL_QUESTIONS: Question[] = MENTAL_HEALTH_QUESTIONS;
+
+export const CATEGORY_ORDER: QuestionCategory[] = [
+  'OCCUPATION',
+  'AGE',
+  'ROUTINE CHECK',
+  'BLOOD PRESSURE',
+  'BLOOD SUGAR',
+  'FAMILY HISTORY',
+  'GENERAL WOMENS HEALTH',
+  'NUTRITION',
+  'EXERCISE',
+  'SLEEP AND REST',
+  'SOCIAL CONNECTEDNESS AND RELATIONSHIP',
+  'MENTAL HEALTH AND MINDFULNESS',
+  'AVOIDANCE OF TOXIC SUBSTANCES',
+];
+
+const QUESTION_ORDER_WITHIN_CATEGORY: Record<string, number> = {
+  // Preserved categories
+  q0_occupation: 1,
+  q1_age: 1,
+  q2_checkup: 1,
+  q_last_cervical_screen: 2,
+  q3_bp: 1,
+  q4_sugar: 1,
+  q5_history: 1,
+
+  // General Women's Health
+  q2049_period_changes_2yr: 1,
+  q2050_fibroids_endo_pcos: 2,
+  q_breast_self_check: 3,
+  q40_urinary_leakage: 4,
+  q40_hot_flushes: 5,
+
+  // Nutrition
+  q7_nutrition: 1,
+
+  // Exercise
+  q6_activity: 1,
+  q_strength_exercise: 2,
+  q_bone_density_test: 3,
+
+  // Sleep and Rest
+  q8_sleep: 1,
+  q40_sleep_changed: 2,
+
+  // Social Connectedness and Relationship
+  q_feel_lonely: 1,
+  q_have_confidant: 2,
+  q40_sexual_desire: 3,
+
+  // Mental health and Mindfulness
+  phq1_interest: 1,
+  phq2_depressed: 2,
+  phq3_sleep: 3,
+  phq4_tired: 4,
+  phq5_appetite: 5,
+  phq6_self_worth: 6,
+  phq7_concentration: 7,
+  phq8_psychomotor: 8,
+  phq9_self_harm: 9,
+
+  // Avoidance of Toxic Substances
+  q_toxic_substances: 1,
+  q_last_mammogram: 2,
+};
+
 export function getHealthQuestions(answers?: Record<string, string>): Question[] {
-  const age = answers?.['q1_age'];
+  const age = answers?.['q1_age'] || '18_29';
 
-  const questions: Question[] = [...CORE_HEALTH_QUESTIONS];
+  const rawQuestions: Question[] = [...CORE_HEALTH_QUESTIONS];
 
-  const is20to49 = ['20_29', '30_39', '40_49'].includes(age || '');
-  const is20to50 = ['20_29', '30_39', '40_49', '50_59'].includes(age || '');
+  const is18to49 = ['18_29', '20_29', '30_39', '40_49'].includes(age || '');
   const is40to49 = age === '40_49';
-  const is20to60Plus = ['20_29', '30_39', '40_49', '50_59', '60_plus'].includes(age || '');
+  const is18to50Plus = ['18_29', '20_29', '30_39', '40_49', '50_plus', '50_59', '60_plus'].includes(age || '');
 
-  // 1. Menstrual Health (20–49)
-  if (is20to49) {
-    questions.push(...MENSTRUAL_20_49_QUESTIONS);
+  // 1. Menstrual Health (18–49)
+  if (is18to49) {
+    rawQuestions.push(...MENSTRUAL_20_49_QUESTIONS);
   }
 
-  // 2. Reproductive & Pregnancy Health (20–50)
-  if (is20to50) {
-    questions.push(...PREGNANCY_20_50_QUESTIONS);
+  // 2. Reproductive & Pregnancy Health (18–49)
+  if (is18to49) {
+    rawQuestions.push(...PREGNANCY_20_50_QUESTIONS);
   }
 
   // 3. Midlife & Perimenopause (40–49)
   if (is40to49) {
-    questions.push(...PERIMENOPAUSE_40_49_QUESTIONS);
+    rawQuestions.push(...PERIMENOPAUSE_40_49_QUESTIONS);
   }
 
-  // 4. Breast & Gynaecological Health (20–60+)
-  if (is20to60Plus) {
-    questions.push(...BREAST_GYNAE_QUESTIONS);
+  // 4. Breast & Gynaecological Health (18–50+)
+  if (is18to50Plus) {
+    const is18to29 = age === '18_29' || age === '20_29';
+    const breastQuestions = is18to29
+      ? BREAST_GYNAE_QUESTIONS.filter((q) => q.id !== 'q_last_mammogram')
+      : BREAST_GYNAE_QUESTIONS;
+    rawQuestions.push(...breastQuestions);
   }
 
-  // 5. Bone, Muscle & Mobility (20–60+)
-  if (is20to60Plus) {
-    questions.push(...BONE_MOBILITY_QUESTIONS);
+  // 5. Bone, Muscle & Mobility (18–50+)
+  if (is18to50Plus) {
+    rawQuestions.push(...BONE_MOBILITY_QUESTIONS);
   }
 
-  // 6. Mental & Emotional Health (20–60+)
-  if (is20to60Plus) {
-    questions.push(...MENTAL_EMOTIONAL_QUESTIONS);
+  // 6. Social Connectedness & Relationship (18–50+)
+  if (is18to50Plus) {
+    rawQuestions.push(...SOCIAL_CONNECTEDNESS_QUESTIONS);
   }
 
-  const total = questions.length;
-  return questions.map((q, idx) => ({
+  // 7. Mental & Emotional Health (18–50+)
+  if (is18to50Plus) {
+    rawQuestions.push(...MENTAL_HEALTH_QUESTIONS);
+  }
+
+  // Strict Category Sequence:
+  // Preserved categories first in order: Occupation & Work, Age Band, Routine Check, Blood Pressure, Blood Sugar, Family History.
+  // Followed by lifestyle categories: Nutrition -> Exercise -> Sleep and Rest -> Social Connectedness and Relationship -> Mental health and Mindfulness -> Avoidance of Toxic Substances.
+  // Questions in one category are completely answered before questions in the next category follow.
+  const categoryOrderMap = new Map(CATEGORY_ORDER.map((cat, idx) => [cat, idx]));
+
+  const sortedQuestions = [...rawQuestions].sort((a, b) => {
+    const orderA = categoryOrderMap.get(a.category) ?? 999;
+    const orderB = categoryOrderMap.get(b.category) ?? 999;
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+    const prioA = QUESTION_ORDER_WITHIN_CATEGORY[a.id] ?? 50;
+    const prioB = QUESTION_ORDER_WITHIN_CATEGORY[b.id] ?? 50;
+    return prioA - prioB;
+  });
+
+  const total = sortedQuestions.length;
+  return sortedQuestions.map((q, idx) => ({
     ...q,
     stepNumber: idx + 1,
     totalSteps: total,
