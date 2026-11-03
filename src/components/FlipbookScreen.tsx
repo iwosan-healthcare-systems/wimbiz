@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ScreenId, HealthNumbers, SummaryResults } from '../types';
-import { generateSummary, calculateBMI } from '../utils/healthLogic';
+import { generateSummary, calculateBMI, formatIssuedTimestamp } from '../utils/healthLogic';
 import { IWOSAN_CONTACT_INFO } from '../data/locations';
 import {
   ArrowLeft,
@@ -44,6 +44,7 @@ import {
   Smartphone,
   Info,
   FileText,
+  Download,
 } from 'lucide-react';
 
 interface FlipbookScreenProps {
@@ -89,6 +90,7 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
   const completedRoadmapCount = Object.values(roadmapTasks).filter(Boolean).length;
 
   const summary: SummaryResults = generateSummary(answers, numbers);
+  const issuedTimestampDisplay = formatIssuedTimestamp();
 
   // Derived user details
   const ageRaw = answers['q1_age'] || '';
@@ -175,19 +177,27 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                     {/* Security Subtle Grid Tint */}
                     <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#00B1DA_1px,transparent_1px)] [background-size:16px_16px]" />
 
-                    {/* Top Row: "Iwosan Clinical / WIMBIZ 25th Annual" + "25 Years" Circular Seal */}
-                    <div className="flex items-start justify-between relative z-10 pt-1">
-                      <div className="text-left space-y-0.5">
-                        <div className="text-[11px] font-mono font-bold tracking-[0.22em] text-slate-300 uppercase">
-                          Iwosan Clinical
+                    {/* Top Row: WIMBIZ & Iwosan Logos + "25 Years" Circular Seal */}
+                    <div className="flex items-center justify-between relative z-10 pt-1">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-[95px] sm:w-[105px] h-8 rounded-[60px]">
+                          <img
+                            src="/wimbizlogo.png"
+                            alt="WIMBIZ Logo"
+                            className="w-full h-full object-contain"
+                          />
                         </div>
-                        <div className="text-[10px] font-medium text-slate-400 tracking-wider">
-                          WIMBIZ 25th Annual
+                        <div className="w-[95px] sm:w-[105px] h-8 rounded-[60px]">
+                          <img
+                            src="/iwlhlogo.png"
+                            alt="Iwosan Lagoon Hospitals Logo"
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                       </div>
 
                       {/* 25 Years Concentric Dotted Badge */}
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-dashed border-[#00B1DA]/40 flex flex-col items-center justify-center p-1 bg-white/[0.02] shadow-[0_0_15px_rgba(0,177,218,0.15)]">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-dashed border-[#00B1DA]/40 flex flex-col items-center justify-center p-1 bg-white/[0.02] shadow-[0_0_15px_rgba(0,177,218,0.15)] shrink-0">
                         <span className="text-xl sm:text-2xl font-bold font-sans text-white tracking-tight leading-none">
                           25
                         </span>
@@ -262,7 +272,7 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                           </div>
                           <div className="text-right">
                             <div className="text-[10px] text-slate-400">Issued</div>
-                            <div className="font-bold text-slate-200 mt-0.5">19 Oct 2026</div>
+                            <div className="font-bold text-slate-200 mt-0.5">{issuedTimestampDisplay}</div>
                           </div>
                         </div>
                       </div>
@@ -320,7 +330,7 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                         {/* 2. Date issued */}
                         <div className="bg-slate-50/80 border border-slate-200/70 rounded-2xl p-2.5 sm:p-3">
                           <div className="text-[10px] text-slate-400 font-medium">Date issued</div>
-                          <div className="text-sm sm:text-base font-bold text-slate-900 mt-0.5">19 Oct 2026</div>
+                          <div className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">{issuedTimestampDisplay}</div>
                         </div>
 
                         {/* 3. Check status */}
@@ -1585,7 +1595,7 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                             </p>
                             <div className="pt-2 border-t border-dashed border-slate-200 mt-2.5 flex items-center justify-between text-[10px] text-slate-400">
                               <span className="font-serif italic text-slate-600 font-medium">Signature</span>
-                              <span>Issued 19 Oct 2026</span>
+                              <span>Issued {issuedTimestampDisplay}</span>
                             </div>
                           </div>
                           <div className="w-16 h-16 rounded-full border-2 border-dashed border-[#47B549] flex flex-col items-center justify-center bg-[#47B549]/5 shrink-0">
@@ -1655,11 +1665,24 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                       {/* Top Meta Line & 25th Badge */}
                       <div className="flex items-start justify-between">
                         <div>
-                          <div className="text-[11px] font-bold tracking-widest uppercase text-slate-400">
-                            Iwosan Clinical
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-[95px] sm:w-[105px] h-8 rounded-[60px]">
+                              <img
+                                src="/wimbizlogo.png"
+                                alt="WIMBIZ Logo"
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                            <div className="w-[95px] sm:w-[105px] h-8 rounded-[60px]">
+                              <img
+                                src="/iwlhlogo.png"
+                                alt="Iwosan Lagoon Hospitals Logo"
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
                           </div>
-                          <div className="text-[10px] text-slate-500 font-mono mt-0.5">
-                            Booth IW25-0810
+                          <div className="text-[10px] text-slate-400 font-mono mt-1.5">
+                            Booth 21
                           </div>
                         </div>
 
@@ -1711,10 +1734,10 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                           </div>
                           <div>
                             <div className="text-xs sm:text-sm font-bold text-white">
-                              Iwosan Hospitals
+                              Iwosan Hospitals Onsite
                             </div>
                             <div className="text-[11px] text-slate-400 mt-0.5">
-                              Conference floor, clinical booth
+                              Visit Booth 21
                             </div>
                           </div>
                         </div>
@@ -1848,9 +1871,12 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
             onClick={handleDownloadFullPdf}
             title="Download Complete 9-Page PDF Flipbook"
             aria-label="Download Complete 9-Page PDF Flipbook"
-            className="w-10 h-10 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-[#00B1DA] transition active:scale-95 cursor-pointer"
+            className="px-3 py-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex flex-col items-center justify-center text-slate-700 hover:bg-slate-50 hover:text-[#00B1DA] transition active:scale-95 cursor-pointer"
           >
-            <FileText className="w-4 h-4" />
+            <Download className="w-4 h-4" />
+            <span className="text-[9px] font-bold leading-none mt-1 tracking-tight">
+              Download
+            </span>
           </button>
         </div>
       </header>
