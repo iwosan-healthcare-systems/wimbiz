@@ -100,17 +100,7 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
   else if (ageRaw.includes('30') || ageRaw.includes('35')) ageBand = '30 – 39';
   else if (ageRaw.includes('18') || ageRaw.includes('20')) ageBand = '18 – 24';
 
-  const occupationAnswer = answers['q0_occupation'] || 'corporate';
-  const occupationLabel =
-    occupationAnswer === 'corporate'
-      ? 'Corporate / Executive Leader'
-      : occupationAnswer === 'entrepreneur'
-      ? 'Entrepreneur / Business Owner'
-      : occupationAnswer === 'public_service'
-      ? 'Public Service / Civil Sector'
-      : occupationAnswer === 'student_early'
-      ? 'Emerging Professional / Graduate'
-      : 'WIMBIZ Delegate';
+  const occupationLabel = 'Rooted and Rising Woman';
 
   const bmiData =
     numbers.height && numbers.weight
@@ -196,14 +186,13 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                         </div>
                       </div>
 
-                      {/* 25 Years Concentric Dotted Badge */}
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-dashed border-[#00B1DA]/40 flex flex-col items-center justify-center p-1 bg-white/[0.02] shadow-[0_0_15px_rgba(0,177,218,0.15)] shrink-0">
-                        <span className="text-xl sm:text-2xl font-bold font-sans text-white tracking-tight leading-none">
-                          25
-                        </span>
-                        <span className="text-[8px] sm:text-[9px] text-slate-400 font-medium tracking-wide mt-0.5 uppercase">
-                          Years
-                        </span>
+                      {/* 25 Years Logo */}
+                      <div className="w-16 h-12 sm:w-20 sm:h-14 flex items-center justify-center shrink-0">
+                        <img
+                          src="/25years.png"
+                          alt="25 Years of Impacting Women"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                     </div>
 
@@ -1686,12 +1675,13 @@ export const FlipbookScreen: React.FC<FlipbookScreenProps> = ({
                           </div>
                         </div>
 
-                        {/* 25 Years Circular Anniversary Badge */}
-                        <div className="w-14 h-14 rounded-full border border-dashed border-[#00B1DA]/60 flex flex-col items-center justify-center text-white shrink-0 bg-white/5">
-                          <span className="text-xl font-serif font-black text-white leading-none">25</span>
-                          <span className="text-[7.5px] uppercase tracking-widest text-[#00B1DA] font-semibold mt-0.5 leading-none">
-                            Years
-                          </span>
+                        {/* 25 Years Logo */}
+                        <div className="w-16 h-12 sm:w-20 sm:h-14 flex items-center justify-center shrink-0">
+                          <img
+                            src="/25years.png"
+                            alt="25 Years of Impacting Women"
+                            className="w-full h-full object-contain"
+                          />
                         </div>
                       </div>
 
